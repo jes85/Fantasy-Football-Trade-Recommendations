@@ -1,0 +1,1510 @@
+// https://site.api.espn.com/apis/fantasy/v2/games/ffl/games?dates=20190905-20190910&pbpOnly=true
+{
+  "events": [
+    {
+      "broadcast": "NBC",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "NBC",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127913",
+      "competitors": [
+        {
+          "abbreviation": "CHI",
+          "color": "152644",
+          "displayName": "Chicago Bears",
+          "homeAway": "home",
+          "id": "3",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/chi.png",
+          "name": "Bears",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:3",
+          "winner": false
+        },
+        {
+          "abbreviation": "GB",
+          "color": "204E32",
+          "displayName": "Green Bay Packers",
+          "homeAway": "away",
+          "id": "9",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/gb.png",
+          "name": "Packers",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:9",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-06T00:20:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, September 5th at 8:20 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/5 - 8:20 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127913",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127913",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127913",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/5 - 8:20 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127913~c:401127913"
+    },
+    {
+      "broadcast": "CBS",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "CBS",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127928",
+      "competitors": [
+        {
+          "abbreviation": "CLE",
+          "color": "4C230E",
+          "displayName": "Cleveland Browns",
+          "homeAway": "home",
+          "id": "5",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/cle.png",
+          "name": "Browns",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:5",
+          "winner": false
+        },
+        {
+          "abbreviation": "TEN",
+          "color": "2F95DD",
+          "displayName": "Tennessee Titans",
+          "homeAway": "away",
+          "id": "10",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/ten.png",
+          "name": "Titans",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:10",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127928",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127928",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127928",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127928~c:401127928"
+    },
+    {
+      "broadcast": "CBS",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "CBS",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127954",
+      "competitors": [
+        {
+          "abbreviation": "MIA",
+          "color": "006B79",
+          "displayName": "Miami Dolphins",
+          "homeAway": "home",
+          "id": "15",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/mia.png",
+          "name": "Dolphins",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:15",
+          "winner": false
+        },
+        {
+          "abbreviation": "BAL",
+          "color": "2B025B",
+          "displayName": "Baltimore Ravens",
+          "homeAway": "away",
+          "id": "33",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/bal.png",
+          "name": "Ravens",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:33",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127954",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127954",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127954",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127954~c:401127954"
+    },
+    {
+      "broadcast": "FOX",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "FOX",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127961",
+      "competitors": [
+        {
+          "abbreviation": "MIN",
+          "color": "240A67",
+          "displayName": "Minnesota Vikings",
+          "homeAway": "home",
+          "id": "16",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/min.png",
+          "name": "Vikings",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:16",
+          "winner": false
+        },
+        {
+          "abbreviation": "ATL",
+          "color": "000000",
+          "displayName": "Atlanta Falcons",
+          "homeAway": "away",
+          "id": "1",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/atl.png",
+          "name": "Falcons",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:1",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127961",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127961",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127961",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127961~c:401127961"
+    },
+    {
+      "broadcast": "CBS",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "CBS",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127963",
+      "competitors": [
+        {
+          "abbreviation": "NYJ",
+          "color": "174032",
+          "displayName": "New York Jets",
+          "homeAway": "home",
+          "id": "20",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/nyj.png",
+          "name": "Jets",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:20",
+          "winner": false
+        },
+        {
+          "abbreviation": "BUF",
+          "color": "04407F",
+          "displayName": "Buffalo Bills",
+          "homeAway": "away",
+          "id": "2",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/buf.png",
+          "name": "Bills",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:2",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127963",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127963",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127963",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127963~c:401127963"
+    },
+    {
+      "broadcast": "FOX",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "FOX",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127968",
+      "competitors": [
+        {
+          "abbreviation": "PHI",
+          "color": "06424D",
+          "displayName": "Philadelphia Eagles",
+          "homeAway": "home",
+          "id": "21",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/phi.png",
+          "name": "Eagles",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:21",
+          "winner": false
+        },
+        {
+          "abbreviation": "WSH",
+          "color": "650415",
+          "displayName": "Washington Redskins",
+          "homeAway": "away",
+          "id": "28",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/wsh.png",
+          "name": "Redskins",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:28",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127968",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127968",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127968",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127968~c:401127968"
+    },
+    {
+      "broadcast": "FOX",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "FOX",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127923",
+      "competitors": [
+        {
+          "abbreviation": "CAR",
+          "color": "2177B0",
+          "displayName": "Carolina Panthers",
+          "homeAway": "home",
+          "id": "29",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/car.png",
+          "name": "Panthers",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:29",
+          "winner": false
+        },
+        {
+          "abbreviation": "LAR",
+          "color": "00295B",
+          "displayName": "Los Angeles Rams",
+          "homeAway": "away",
+          "id": "14",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/lar.png",
+          "name": "Rams",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:14",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127923",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127923",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127923",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127923~c:401127923"
+    },
+    {
+      "broadcast": "CBS",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "CBS",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127931",
+      "competitors": [
+        {
+          "abbreviation": "JAX",
+          "color": "00839C",
+          "displayName": "Jacksonville Jaguars",
+          "homeAway": "home",
+          "id": "30",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/jax.png",
+          "name": "Jaguars",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:30",
+          "winner": false
+        },
+        {
+          "abbreviation": "KC",
+          "color": "BE1415",
+          "displayName": "Kansas City Chiefs",
+          "homeAway": "away",
+          "id": "12",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/kc.png",
+          "name": "Chiefs",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:12",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T17:00:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 1:00 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 1:00 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127931",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127931",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127931",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 1:00 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127931~c:401127931"
+    },
+    {
+      "broadcast": "CBS",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "CBS",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127972",
+      "competitors": [
+        {
+          "abbreviation": "LAC",
+          "color": "042453",
+          "displayName": "Los Angeles Chargers",
+          "homeAway": "home",
+          "id": "24",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/lac.png",
+          "name": "Chargers",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:24",
+          "winner": false
+        },
+        {
+          "abbreviation": "IND",
+          "color": "00417E",
+          "displayName": "Indianapolis Colts",
+          "homeAway": "away",
+          "id": "11",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/ind.png",
+          "name": "Colts",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:11",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T20:05:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 4:05 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 4:05 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127972",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127972",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127972",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 4:05 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127972~c:401127972"
+    },
+    {
+      "broadcast": "CBS",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "CBS",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127995",
+      "competitors": [
+        {
+          "abbreviation": "SEA",
+          "color": "224970",
+          "displayName": "Seattle Seahawks",
+          "homeAway": "home",
+          "id": "26",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/sea.png",
+          "name": "Seahawks",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:26",
+          "winner": false
+        },
+        {
+          "abbreviation": "CIN",
+          "color": "FF2700",
+          "displayName": "Cincinnati Bengals",
+          "homeAway": "away",
+          "id": "4",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/cin.png",
+          "name": "Bengals",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:4",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T20:05:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 4:05 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 4:05 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127995",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127995",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127995",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 4:05 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127995~c:401127995"
+    },
+    {
+      "broadcast": "FOX",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "FOX",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401128007",
+      "competitors": [
+        {
+          "abbreviation": "DAL",
+          "color": "002E4D",
+          "displayName": "Dallas Cowboys",
+          "homeAway": "home",
+          "id": "6",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/dal.png",
+          "name": "Cowboys",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:6",
+          "winner": false
+        },
+        {
+          "abbreviation": "NYG",
+          "color": "052570",
+          "displayName": "New York Giants",
+          "homeAway": "away",
+          "id": "19",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/nyg.png",
+          "name": "Giants",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:19",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T20:25:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 4:25 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 4:25 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401128007",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401128007",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401128007",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 4:25 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401128007~c:401128007"
+    },
+    {
+      "broadcast": "FOX",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "FOX",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127999",
+      "competitors": [
+        {
+          "abbreviation": "ARI",
+          "color": "A40227",
+          "displayName": "Arizona Cardinals",
+          "homeAway": "home",
+          "id": "22",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/ari.png",
+          "name": "Cardinals",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:22",
+          "winner": false
+        },
+        {
+          "abbreviation": "DET",
+          "color": "035C98",
+          "displayName": "Detroit Lions",
+          "homeAway": "away",
+          "id": "8",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/det.png",
+          "name": "Lions",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:8",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T20:25:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 4:25 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 4:25 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127999",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127999",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127999",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 4:25 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127999~c:401127999"
+    },
+    {
+      "broadcast": "FOX",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "FOX",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401128010",
+      "competitors": [
+        {
+          "abbreviation": "TB",
+          "color": "A80D08",
+          "displayName": "Tampa Bay Buccaneers",
+          "homeAway": "home",
+          "id": "27",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/tb.png",
+          "name": "Buccaneers",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:27",
+          "winner": false
+        },
+        {
+          "abbreviation": "SF",
+          "color": "981324",
+          "displayName": "San Francisco 49ers",
+          "homeAway": "away",
+          "id": "25",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/sf.png",
+          "name": "49ers",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:25",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-08T20:25:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 4:25 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 4:25 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401128010",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401128010",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401128010",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 4:25 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401128010~c:401128010"
+    },
+    {
+      "broadcast": "NBC",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "NBC",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401127860",
+      "competitors": [
+        {
+          "abbreviation": "NE",
+          "color": "02244A",
+          "displayName": "New England Patriots",
+          "homeAway": "home",
+          "id": "17",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/ne.png",
+          "name": "Patriots",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:17",
+          "winner": false
+        },
+        {
+          "abbreviation": "PIT",
+          "color": "000000",
+          "displayName": "Pittsburgh Steelers",
+          "homeAway": "away",
+          "id": "23",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/pit.png",
+          "name": "Steelers",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:23",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-09T00:20:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, September 8th at 8:20 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/8 - 8:20 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401127860",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401127860",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401127860",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/8 - 8:20 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401127860~c:401127860"
+    },
+    {
+      "broadcast": "ESPN",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "ESPN",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401128021",
+      "competitors": [
+        {
+          "abbreviation": "NO",
+          "color": "020202",
+          "displayName": "New Orleans Saints",
+          "homeAway": "home",
+          "id": "18",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/no.png",
+          "name": "Saints",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:18",
+          "winner": false
+        },
+        {
+          "abbreviation": "HOU",
+          "color": "00133F",
+          "displayName": "Houston Texans",
+          "homeAway": "away",
+          "id": "34",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/hou.png",
+          "name": "Texans",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:34",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-09T23:10:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Mon, September 9th at 7:10 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/9 - 7:10 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401128021",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401128021",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401128021",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/9 - 7:10 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401128021~c:401128021"
+    },
+    {
+      "broadcast": "ESPN",
+      "broadcasts": [
+        {
+          "isNational": true,
+          "lang": "en",
+          "region": "us",
+          "shortName": "ESPN",
+          "type": "TV",
+          "typeId": 1
+        }
+      ],
+      "clock": "0:00",
+      "competitionId": "401128025",
+      "competitors": [
+        {
+          "abbreviation": "OAK",
+          "color": "000000",
+          "displayName": "Oakland Raiders",
+          "homeAway": "home",
+          "id": "13",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/oak.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/oak.png",
+          "name": "Raiders",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:13",
+          "winner": false
+        },
+        {
+          "abbreviation": "DEN",
+          "color": "002E4D",
+          "displayName": "Denver Broncos",
+          "homeAway": "away",
+          "id": "7",
+          "lineup": [],
+          "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/den.png",
+          "name": "Broncos",
+          "record": "",
+          "score": "",
+          "type": "team",
+          "uid": "s:20~l:28~t:7",
+          "winner": false
+        }
+      ],
+      "date": "2019-09-10T02:20:00Z",
+      "drive": {},
+      "fantasySource": {
+        "description": "none",
+        "id": "0",
+        "state": "none"
+      },
+      "fullStatus": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Mon, September 9th at 10:20 PM EDT",
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "shortDetail": "9/9 - 10:20 PM EDT",
+          "state": "pre"
+        }
+      },
+      "id": "401128025",
+      "lastPlay": {},
+      "link": "http://www.espn.com/nfl/game/_/gameId/401128025",
+      "links": [
+        {
+          "href": "http://www.espn.com/nfl/game/_/gameId/401128025",
+          "isExternal": false,
+          "isPremium": false,
+          "language": "en",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "shortText": "Summary",
+          "text": "Gamecast"
+        }
+      ],
+      "period": 0,
+      "scoringPlays": [],
+      "status": "pre",
+      "summary": "9/9 - 10:20 PM EDT",
+      "timeValid": true,
+      "uid": "s:20~l:28~e:401128025~c:401128025"
+    }
+  ],
+  "statistics": []
+}

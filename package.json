@@ -1,0 +1,23 @@
+{
+  "name": "ff",
+  "version": "1.0.0",
+  "description": "espn fantasy football app",
+  "main": "node_hello_world.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "start": "babel-watch src/ff.js"
+  },
+  "author": "Jeremy Schreck",
+  "license": "ISC",
+  "dependencies": {
+    "espn-fantasy-football-api": "^0.9.0",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-watch": "^7.0.0",
+    "eslint": "^6.0.1"
+  }
+}
