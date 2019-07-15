@@ -1,0 +1,4 @@
+{
+  	// enables transforms for ES2015+ (to support es6 syntax) https://babeljs.io/docs/en/babel-preset-env
+  	"presets": ["@babel/preset-env"] 
+}
