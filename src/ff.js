@@ -14,17 +14,28 @@ espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
 	espnClient.getPlayers(seasonId, proTeamIdToByeWeekMap).then((players) => {
 		//console.log(players);
 		espnClient.getTeams(seasonId, players, proTeamIdToByeWeekMap).then((teams) => {
-  			_.each(teams, (team) => {
-  				console.log(team.id);
-  				console.log(team.nickname);
-  				_.each(team.players, (player) => {
-  					console.log(player.fullName);
-  					//console.log(player.eligibleSlots);
-  				})
-  			});
-  			league.calculateBestTrades(currentWeek, teams);
+			printTeams(teams);
+			var trades = league.getAllTrades(currentWeek, teams);
+			console.log("Total trades: " + trades.length);
+			var bestTradesMap = sortTrades(trades);
+			console.log("Total viable trades: " + bestTradesMap.length);
+			printBestTrades(bestTradesMap);
 		});
 	});
 });
 
+function printTeams(teams) {
+	console.log(`Teams:\n\n ${_.map(teams, (team) => team.toString())}`);
+}
 
+// todo create map
+function sortTrades(trades) {
+	// Filture all trades that are definitely bad (negative scores), and sort by descending score (best scores first).
+	var bestTrades = _.sortBy(_.filter(trades, (trade) => trade.overallTradeScore > 0), (trade) => -trade.overallTradeScore);
+	//var bestTrades = _.sortBy(trades, (trade) => -trade.overallTradeScore);
+	return bestTrades;
+}
+
+function printBestTrades(bestTradesMap) {
+	console.log(`best trades: ${_.map(bestTradesMap, (trade) => trade.toString())}.`);
+}

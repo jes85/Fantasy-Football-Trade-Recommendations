@@ -119,9 +119,13 @@ class Team {
 		return new Team(this.id, this.nickname, newPlayers);
 	}
 
-	// toString() {
- //        return '(' + this.id + ', ' + this.nickname + ', ' + this.players.toString() + ')';
- //    }
+	toString() {
+		return `{\n` +
+			`Team id: ${this.id}\n` +
+			`Team name: ${this.nickname}\n` +
+			`Players:\n ${_.map(this.players, (player) => player.toString())}}` +
+		`}`;
+    }
 
 	// validateRoster() {
 	// 	_.each(League.rosterSlots, (rosterSlot) => {

@@ -7,49 +7,40 @@ class League {
 	    this.startingLineupSlots = startingLineupSlots;
 	}
 
-	calculateBestTrades(currentWeek, teams) {
-		_.each(teams, (team) => {
-			this.calculateBestTradesForTeam(team, currentWeek, teams);
-		});
-	}
-
-	calculateBestTradesForTeam(team, currentWeek, teams) {
+	// TODO these trade methods probably don't belong in "League"
+	getAllTrades(currentWeek, teams) {
 		var trades = [];
-		_.each(teams, (otherTeam) => {
-			if (otherTeam.id != team.id) {
-				var best1v1Trades = this.calculateBest1v1Trades(team, otherTeam, currentWeek); // calculateBestnvmTrades(Team1, Team2, 1, 1)
-
-				// # 2v2 trades
-				var best2v2Trades = [];//this.calculateBest2v2Trades(team, otherTeam, currentWeek); // calculateBestnvmTrades(Team1, Team2, 2, 2)
-
-				var best1v2Trades = this.calculateBest2v1Trades(otherTeam, team, currentWeek);
-				// # 3v3 trades
-				// best3v3Trades = calculateBestnvmTrades(Team1, Team2, 3, 3)
-
-			    //bestTrades = [best1v1Trades+best2v2Trades+best3v3Trades].sortBy(team1Score)
-			    var bestTradesForTeam1WithTeam2 = best1v1Trades.concat(best2v2Trades).concat(best1v2Trades);
-			    trades = trades.concat(bestTradesForTeam1WithTeam2);
-			}
+		_.each(teams, (team, i) => {
+			// Don't need to calculate trades twice.
+			var otherTeams = teams.slice(i + 1, teams.length);
+			trades = trades.concat(this.getAllTradesForTeam(team, otherTeams, currentWeek));
 		});
-		//console.log(trades.length);
-		var bestTrades = _.sortBy(_.filter(trades, (trade) => trade.score > 0), (trade) => -trade.score);
-		var bestTrade = bestTrades[0];
-		console.log("best trades for team " + team.id + ": " + _.map(bestTrades, (trade) => trade.toString()));
-		//console.log("best trade for team " + team.id + ": " + bestTrade.team1.id + ", " + bestTrade.team2.id + ", " + _.map(bestTrade.playersToTradeOnTeam1, (player) => player.fullName) + ", " + _.map(bestTrade.playersToTradeOnTeam2, (player) => player.fullName) + "," + bestTrade.team1ExpectedPointsAdded + ", " + bestTrade.team2ExpectedPointsAdded + ", " + bestTrade.score);
+		return trades;
 	}
 
-	calculateBest1v1Trades(team1, team2, currentWeek) {
-		var trades = []; // use priorityqueue instead?
+	getAllTradesForTeam(team, otherTeams, currentWeek) {
+		var trades = [];
+		_.each(otherTeams, (otherTeam) => {
+			var all1v1Trades = this.getAll1v1Trades(team, otherTeam, currentWeek); // getAllnvmTrades(Team1, Team2, 1, 1)
+
+			var all2v2Trades = []; // this.getAll2v2Trades(team, otherTeam, currentWeek); // getAllnvmTrades(Team1, Team2, 2, 2)
+
+			var all2v1Trades = [];//this.getAll2v1Trades(team, otherTeam, currentWeek);
+
+			var all1v2Trades = [];//this.getAll2v1Trades(otherTeam, team, currentWeek);
+
+			// # 3v3 trades
+			// var all3v3Trades = getAllnvmTrades(Team1, Team2, 3, 3)
+		    trades = trades.concat(all1v1Trades).concat(all2v2Trades).concat(all2v1Trades).concat(all1v2Trades);
+		});
+		return trades;
+	}
+
+	getAll1v1Trades(team1, team2, currentWeek) {
+		var trades = [];
 		_.each(team1.players, (player1) => {
 			_.each(team2.players, (player2) => {
-				if (_.includes(player1.eligibleSlots, '0')) {
-					return;
-				}
 				var team1AfterTrade = team1.afterTrade([player1], [player2]);
-				if (team1AfterTrade.players[0].id != team1.players[0].id) {
-					//console.log(team1AfterTrade.expectedPointsRestOfSeason(currentWeek) == team1.expectedPointsRestOfSeason(currentWeek));
-				}
-				//console.log(team1AfterTrade.players.length == team1.players.length);
 				var team2AfterTrade = team2.afterTrade([player2], [player1]);
 
 				var trade = new Trade(
@@ -63,10 +54,10 @@ class League {
 			});
 		});
 
-		return _.sortBy(trades, (trade) => -trade.score);
+		return trades;
 	}
 
-	calculateBest2v2Trades(team1, team2, currentWeek) {
+	getAll2v2Trades(team1, team2, currentWeek) {
 		var trades = [];
 		_.each(team1.players, (team1player1) => {
 			_.each(_.without(team1.players, team1player1), (team1player2) => {
@@ -88,10 +79,10 @@ class League {
 			});
 		});
 
-		return _.sortBy(trades, (trade) => -trade.score);
+		return trades;
 	}
 
-	calculateBest2v1Trades(team1, team2, currentWeek) {
+	getAll2v1Trades(team1, team2, currentWeek) {
 		var trades = [];
 		_.each(team1.players, (team1player1) => {
 			_.each(_.without(team1.players, team1player1), (team1player2) => {
@@ -111,7 +102,7 @@ class League {
 			});
 		});
 
-		return _.sortBy(trades, (trade) => -trade.score);
+		return trades;
 	}
 }
 
