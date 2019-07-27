@@ -39,25 +39,6 @@ class ExtendedClient {
     return route;
   }
 
-  /**
-   * Returns all teams in the ff league.
-   * @return {Team[]}
-   */
-  // getTeams(seasonId) {
-  //   return axios.get(this.getPlayersRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-  //     //console.log(response.data);
-  //     const playersData = _.get(response.data, 'players');
-  //     // console.log(playersData);
-  //     return axios.get(this.getTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-  //       const teamsData = _.get(response.data, 'teams');
-  //       // console.log(teamsData);   
-  //       return _.map(teamsData, (teamData, index) => (
-  //         Team.buildFromFakeServer(teamData, playersData, index, teamsData.length)
-  //       ));
-  //     });
-  //   });
-  // }
-
   getTeams(seasonId, players, proTeamIdToByeWeekMap) {
     return axios.get(this.getTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
         const teamsData = _.get(response.data, 'teams');
@@ -72,10 +53,11 @@ class ExtendedClient {
     return axios.get(this.getPlayersRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
         //console.log(response.data);
         const playersData = _.get(response.data, 'players');
-        const totalExpectedPoints2019 = 200; // TODO
         //console.log(playersData);
         return _.map(playersData, (playerData) => (
-          Player.buildFromServer(playerData, proTeamIdToByeWeekMap, totalExpectedPoints2019)
+          // Use totalRating as an estimate to total projected points for now
+          // TODO get better projections
+          Player.buildFromServer(playerData, proTeamIdToByeWeekMap, playerData.ratings[0].totalRating)
         ));
     });
   }
