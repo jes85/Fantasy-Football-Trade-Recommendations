@@ -32,6 +32,15 @@ class Player {
 	satisfiesStartingLineupSlot(slot) {
 		return _.includes(this.eligibleSlots, slot);
 	}
+
+	toString() {
+		// return `{\n` +
+		// 	//`Player id: ${this.id}\n` +
+		// 	`\tName: ${this.fullName}\n` +
+		// 	//`EligibleSlots: ${this.eligibleSlots}` +
+		// '}\n';
+		return this.fullName;
+	}
 }
 
 export default Player;

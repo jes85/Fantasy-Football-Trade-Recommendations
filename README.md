@@ -14,13 +14,17 @@ lib/
 node_modules/
   - contains node libraries that the code depends on after you run npm install.
 
-### Building/running
+### Installing
+
+Prerequisites: Makes use you have node/npm installed.
 
 Use `npm install` to install dependencies. They will be installed inside a new directory node_modules/.
 
-Use `npm run build` to compile the src/ files (that use ES6 syntax) into the lib/ files (non ES6 syntax that node can understand)
+### Building and Running the program
 
-Use `node lib/ff.js` to run the program.
+Build: Use `npm run build` to compile the src/ files (that use ES6 syntax) into the lib/ files (non ES6 syntax that node can understand)
 
-Alternatively, use `npm run start` to build/run the program automatically after any file saves.
+Run: Use `node lib/ff.js` to run the program.
+
+Build and run: Alternatively, use `npm run start` to build/run the program automatically after any file saves.
 
