@@ -93,5 +93,8 @@ lib/
 # Node modules
 node_modules/
 
-# Secrets
+# Secrets (passwords, cookies)
 secrets/
+
+# Debug output
+output/
