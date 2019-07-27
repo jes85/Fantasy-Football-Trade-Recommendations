@@ -17,8 +17,8 @@ espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
 			printTeams(teams);
 			var trades = league.getAllTrades(currentWeek, teams);
 			console.log("Total trades: " + trades.length);
-			var bestTradesMap = sortTrades(trades);
-			console.log("Total viable trades: " + bestTradesMap.length);
+			var bestTradesMap = sortTrades(trades, teams);
+			console.log("Total viable trades: " + bestTradesMap["overall"].length);
 			printBestTrades(bestTradesMap);
 		});
 	});
@@ -28,14 +28,39 @@ function printTeams(teams) {
 	console.log(`Teams:\n\n ${_.map(teams, (team) => team.toString())}`);
 }
 
-// todo create map
-function sortTrades(trades) {
-	// Filture all trades that are definitely bad (negative scores), and sort by descending score (best scores first).
-	var bestTrades = _.sortBy(_.filter(trades, (trade) => trade.overallTradeScore > 0), (trade) => -trade.overallTradeScore);
-	//var bestTrades = _.sortBy(trades, (trade) => -trade.overallTradeScore);
-	return bestTrades;
+/**
+ * 
+	{
+		"overall": [],
+		"byTeam": {
+		  1: [], // key = teamId
+		  2: [].
+		}
+	}
+ */
+function sortTrades(trades, teams) {
+	var bestTradesMap = {};
+	// Filture all trades that are definitely bad (negative scores)
+	var viableTrades = _.filter(trades, (trade) => trade.overallTradeScore > 0);
+
+	// Sort by descending score (best scores first).
+	var bestOverallTrades = _.sortBy(viableTrades, (trade) => -trade.overallTradeScore);
+	bestTradesMap["overall"] = bestOverallTrades;
+
+	var bestTradesByTeamMap = {};
+	_.each(teams, (team) => {
+		var tradesWithTeam = _.filter(viableTrades, (trade) => trade.includesTeam(team));
+		var bestTradesForTeam = _.sortBy(tradesWithTeam, (trade) => -trade.tradeScoreForTeam(team));
+		bestTradesByTeamMap[team.id] = bestTradesForTeam;
+	});
+	bestTradesMap["byTeam"] = bestTradesByTeamMap;
+
+	return bestTradesMap;
 }
 
 function printBestTrades(bestTradesMap) {
-	console.log(`best trades: ${_.map(bestTradesMap, (trade) => trade.toString())}.`);
+	console.log(`best overall trades: ${_.map(bestTradesMap['overall'], (trade) => trade.toString())}\n.`);
+	_.each(bestTradesMap['byTeam'], (trades, teamId) => {
+		console.log(`best trades for team ${teamId} (${trades.length} total): ${_.map(trades, (trade) => trade.toString())}\n.`);
+	});
 }
