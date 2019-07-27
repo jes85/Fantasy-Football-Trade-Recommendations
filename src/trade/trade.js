@@ -20,6 +20,20 @@ class Trade {
 
 	}
 
+	includesTeam(team) {
+		return team.id == this.team1.id || team.id == this.team2.id;
+	}
+
+	tradeScoreForTeam(team) {
+		if (!this.includesTeam(team)) {
+			throw `Can't get tradeScore for team ${team.id} because that team is not involved in this trade.`
+		} else if (team.id == this.team1.id) {
+			return this.team1TradeScore;
+		} else if (team.id == this.team2.id) {
+			return this.team2TradeScore;
+		}
+	}
+
 	// Weighted in favor of team1.
 	// TODO tune
 	calculateTeam1Score(team1ExpectedPointsAdded, team2ExpectedPointsAdded) {
