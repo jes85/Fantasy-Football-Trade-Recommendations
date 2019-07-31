@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Player from '../player/player.js';
+import Player from '../model/player.js';
 import { numWeeksInSeason, startingLineupSlots, maxLineupSlots} from '../constants/constants.js';
 
 class Team {

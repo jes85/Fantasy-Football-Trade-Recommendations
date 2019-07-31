@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Trade from '../trade/trade.js';
+import Trade from './trade.js';
 
 class League {
     constructor(numWeeksInSeason, startingLineupSlots) {

@@ -1,9 +1,9 @@
-import ExtendedClient from './client/client.js';
+import EspnClient from './clients/espnclient.js';
 import _ from 'lodash';
 // Not committing secrets to git. To run this program, create a file at path ./secrets/secrets.js and export these constants.
 import { leagueId, espnS2, swid } from './secrets/secrets.js';
 import { numWeeksInSeason, seasonId, startingLineupSlots } from './constants/constants.js';
-import League from './league/league.js';
+import League from './model/league.js';
 
 const espnClient = new ExtendedClient({ leagueId: leagueId, espnS2: espnS2, SWID: swid });
 const league = new League(numWeeksInSeason, startingLineupSlots);
