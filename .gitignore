@@ -87,6 +87,12 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# Visual Studio Code
+.vscode/
+
+# Mac .DS_Store
+*.DS_Store*
+
 # ES6 compiled code
 lib/
 
@@ -97,4 +103,6 @@ node_modules/
 secrets/
 
 # Debug output
-output/
+testing/
+
+

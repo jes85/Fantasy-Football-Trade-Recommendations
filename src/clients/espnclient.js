@@ -1,13 +1,13 @@
 import { Client } from 'espn-fantasy-football-api/node-dev';
 import axios from 'axios';
 import _ from 'lodash';
-import Team from '../team/team.js';
-import Player from '../player/player.js';
-import ProTeam from '../proTeam/proTeam.js';
+import Team from '../model/team.js';
+import Player from '../model/player.js';
+import ProTeam from '../model/proTeam.js';
 
 axios.defaults.baseURL = 'http://fantasy.espn.com/apis/v3/games/ffl/seasons/';
 
-class ExtendedClient {
+class EspnClient {
   constructor(options) {
     // todo inject this instead of new
     this.leagueId = options.leagueId;
@@ -15,6 +15,51 @@ class ExtendedClient {
     this.client.setCookies({ espnS2: options.espnS2, SWID: options.SWID });   
   }
 
+  getTeams(seasonId, players, proTeamIdToByeWeekMap) {
+    return axios.get(this.getTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
+        const teamsData = _.get(response.data, 'teams');
+        console.log(teamsData);   
+        return _.map(teamsData, (teamData) => (
+          Team.buildFromServer(teamData, players)
+        ));
+    });
+  }
+
+  getPlayers(seasonId, proTeamIdToByeWeekMap) {
+    return axios.get(this.getPlayersRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
+        //console.log(response.data);
+        const playersData = _.get(response.data, 'players');
+        //console.log(playersData);
+        return _.map(playersData, (playerData) => {
+          // Use totalRating as an estimate to total projected points for now
+          // TODO get better projections
+          var totalExpectedPoints2019 = 100;
+          if (playerData.ratings) {
+            totalExpectedPoints2019 = playerData.ratings['0'].totalRating;
+          }
+          return Player.buildFromServer(playerData, proTeamIdToByeWeekMap, totalExpectedPoints2019);
+      });
+    });
+  }
+
+  getProTeamIdToByeWeekMap(seasonId) {
+    return axios.get(this.getProTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
+        //console.log(response.data);
+        const proTeamsData = response.data['settings']['proTeams'];
+        const totalExpectedPoints2019 = 200; // TODO
+        //console.log(proTeamsData);
+        var proTeamDataList = _.map(proTeamsData, (proTeamData) => (
+          ProTeam.buildFromServer(proTeamData)
+        ));
+        return _.keyBy(proTeamDataList, (proTeam) => (
+          proTeam.id 
+        ));
+    });
+  }
+
+  /**
+   * Private methods.
+   */
   // http://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=mTeam
   getTeamsRoute(seasonId) {
     const routeBase = `${seasonId}/segments/0/leagues/${this.leagueId}`;
@@ -38,44 +83,5 @@ class ExtendedClient {
     const route = `${routeBase}${routeParams}`;
     return route;
   }
-
-  getTeams(seasonId, players, proTeamIdToByeWeekMap) {
-    return axios.get(this.getTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-        const teamsData = _.get(response.data, 'teams');
-        // console.log(teamsData);   
-        return _.map(teamsData, (teamData, index) => (
-          Team.buildFromFakeServer(teamData, players, index, teamsData.length)
-        ));
-    });
-  }
-
-  getPlayers(seasonId, proTeamIdToByeWeekMap) {
-    return axios.get(this.getPlayersRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-        //console.log(response.data);
-        const playersData = _.get(response.data, 'players');
-        //console.log(playersData);
-        return _.map(playersData, (playerData) => (
-          // Use totalRating as an estimate to total projected points for now
-          // TODO get better projections
-          Player.buildFromServer(playerData, proTeamIdToByeWeekMap, playerData.ratings[0].totalRating)
-        ));
-    });
-  }
-
-  getProTeamIdToByeWeekMap(seasonId) {
-    return axios.get(this.getProTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-        //console.log(response.data);
-        const proTeamsData = response.data['settings']['proTeams'];
-        const totalExpectedPoints2019 = 200; // TODO
-        //console.log(proTeamsData);
-        var proTeamDataList = _.map(proTeamsData, (proTeamData) => (
-          ProTeam.buildFromServer(proTeamData)
-        ));
-        return _.keyBy(proTeamDataList, (proTeam) => (
-          proTeam.id 
-        ));
-    });
-  }
 }
-
-export default ExtendedClient;
+export default EspnClient;

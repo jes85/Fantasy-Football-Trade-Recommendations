@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { numWeeksInSeason } from '../constants/constants.js';
 
 class Player {
 
@@ -18,12 +17,12 @@ class Player {
       this.totalExpectedPoints2019 = totalExpectedPoints2019;
   }
 
-  expectedPointsForWeek(week) {
-    return week == this.byeWeek ? 0 : this.totalExpectedPoints2019 / numWeeksInSeason;
+  expectedPointsForWeek(week, numWeeksInSeason) {
+    return week == this.byeWeek || week > numWeeksInSeason ? 0 : this.totalExpectedPoints2019 / numWeeksInSeason;
   }
 
   // currentWeek is the week we are trying to project. Games have not occurred yet.
-  expectedPointsRestOfSeason(currentWeek) {
+  expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) {
     const isByeWeekOver = this.byeWeek < currentWeek;
     const weeksRemaining = isByeWeekOver ? numWeeksInSeason - currentWeek : numWeeksInSeason - currentWeek - 1;
     return this.totalExpectedPoints2019 * weeksRemaining;
