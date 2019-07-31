@@ -10,57 +10,57 @@ const league = new League(numWeeksInSeason, startingLineupSlots);
 const currentWeek = 1;
 
 espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
-	//console.log(proTeamIdToByeWeekMap);
-	espnClient.getPlayers(seasonId, proTeamIdToByeWeekMap).then((players) => {
-		//console.log(players);
-		espnClient.getTeams(seasonId, players, proTeamIdToByeWeekMap).then((teams) => {
-			printTeams(teams);
-			var trades = league.getAllTrades(currentWeek, teams);
-			console.log("Total trades: " + trades.length);
-			var bestTradesMap = sortTrades(trades, teams);
-			console.log("Total viable trades: " + bestTradesMap["overall"].length);
-			printBestTrades(bestTradesMap);
-		});
-	});
+  //console.log(proTeamIdToByeWeekMap);
+  espnClient.getPlayers(seasonId, proTeamIdToByeWeekMap).then((players) => {
+    //console.log(players);
+    espnClient.getTeams(seasonId, players, proTeamIdToByeWeekMap).then((teams) => {
+      printTeams(teams);
+      var trades = league.getAllTrades(currentWeek, teams);
+      console.log("Total trades: " + trades.length);
+      var bestTradesMap = sortTrades(trades, teams);
+      console.log("Total viable trades: " + bestTradesMap["overall"].length);
+      printBestTrades(bestTradesMap);
+    });
+  });
 });
 
 function printTeams(teams) {
-	console.log(`Teams:\n\n ${_.map(teams, (team) => team.toString())}`);
+  console.log(`Teams:\n\n ${_.map(teams, (team) => team.toString())}`);
 }
 
 /**
  * 
-	{
-		"overall": [],
-		"byTeam": {
-		  1: [], // key = teamId
-		  2: [].
-		}
-	}
+  {
+    "overall": [],
+    "byTeam": {
+      1: [], // key = teamId
+      2: [].
+    }
+  }
  */
 function sortTrades(trades, teams) {
-	var bestTradesMap = {};
-	// Filture all trades that are definitely bad (negative scores)
-	var viableTrades = _.filter(trades, (trade) => trade.overallTradeScore > 0);
+  var bestTradesMap = {};
+  // Filture all trades that are definitely bad (negative scores)
+  var viableTrades = _.filter(trades, (trade) => trade.overallTradeScore > 0);
 
-	// Sort by descending score (best scores first).
-	var bestOverallTrades = _.sortBy(viableTrades, (trade) => -trade.overallTradeScore);
-	bestTradesMap["overall"] = bestOverallTrades;
+  // Sort by descending score (best scores first).
+  var bestOverallTrades = _.sortBy(viableTrades, (trade) => -trade.overallTradeScore);
+  bestTradesMap["overall"] = bestOverallTrades;
 
-	var bestTradesByTeamMap = {};
-	_.each(teams, (team) => {
-		var tradesWithTeam = _.filter(viableTrades, (trade) => trade.includesTeam(team));
-		var bestTradesForTeam = _.sortBy(tradesWithTeam, (trade) => -trade.tradeScoreForTeam(team));
-		bestTradesByTeamMap[team.id] = bestTradesForTeam;
-	});
-	bestTradesMap["byTeam"] = bestTradesByTeamMap;
+  var bestTradesByTeamMap = {};
+  _.each(teams, (team) => {
+    var tradesWithTeam = _.filter(viableTrades, (trade) => trade.includesTeam(team));
+    var bestTradesForTeam = _.sortBy(tradesWithTeam, (trade) => -trade.tradeScoreForTeam(team));
+    bestTradesByTeamMap[team.id] = bestTradesForTeam;
+  });
+  bestTradesMap["byTeam"] = bestTradesByTeamMap;
 
-	return bestTradesMap;
+  return bestTradesMap;
 }
 
 function printBestTrades(bestTradesMap) {
-	console.log(`best overall trades: ${_.map(bestTradesMap['overall'], (trade) => trade.toString())}\n.`);
-	_.each(bestTradesMap['byTeam'], (trades, teamId) => {
-		console.log(`best trades for team ${teamId} (${trades.length} total): ${_.map(trades, (trade) => trade.toString())}\n.`);
-	});
+  console.log(`best overall trades: ${_.map(bestTradesMap['overall'], (trade) => trade.toString())}\n.`);
+  _.each(bestTradesMap['byTeam'], (trades, teamId) => {
+    console.log(`best trades for team ${teamId} (${trades.length} total): ${_.map(trades, (trade) => trade.toString())}\n.`);
+  });
 }
