@@ -10,6 +10,10 @@ src/
 
 - contains the source code. Main file is ff.js.
 
+tst/
+
+- contains the unit tests. Should follow same folder structure as src/.
+
 api_playground/
 
 - contains output of various http calls to espn's api. I used this to piece together which api calls I needed to make to get the data I wanted (espn's doesn't have public documentation for their api).
@@ -21,6 +25,20 @@ lib/
 node_modules/
 
 - contains node libraries that the code depends on after you run npm install.
+
+## Style guide + Naming conventions
+
+Files
+
+- start with lowercase character
+- camelCase for files containing js classes (I.e. consoleTradeInputStorer.js)
+- hyphens for files containing scripts (i.e. hello-world-node.js)
+- consider adding versioning to the filenames later if necessary
+
+Folders
+
+- all lowercase
+- use underscores as the separator
 
 ## Installing
 
@@ -75,7 +93,8 @@ End result: I can run this script on a weekly basis for one league at a time, an
 ### Cleanup
 
 - Remove secrets from git and delete/recreate github repo
-- Rename files to follow same naming convention (capital or lowercase)
+- ~~Rename files to follow same naming convention (I chose convention based off combination of google searches for js conventions)~~
+  - ~~see above for the convention I decided on~~
 - Add descriptive comments everywhere
 - Combine/cleanup constants maps
 - Remove dependency on espn client package
