@@ -1,26 +1,34 @@
-### Project information
-The goal of this project is to recommend trades for fantasy football. It downloads league/team data from ESPN Fantasy Football based on the leagueId you provide, and outputs trade recommendations for each team. 
+# Fantasy Football Trade Recommendations
 
-### File structure
+## Project information
+
+The goal of this project is to recommend trades for fantasy football. It downloads league/team data from ESPN Fantasy Football based on the leagueId you provide, and outputs trade recommendations for each team.
+
+## File structure
+
 src/
-  - contains the source code. Main file is ff.js.
+
+- contains the source code. Main file is ff.js.
 
 api_playground/
-  - contains output of various http calls to espn's api. I used this to piece together which api calls I needed to make to get the data I wanted (espn's doesn't have public documentation for their api).
+
+- contains output of various http calls to espn's api. I used this to piece together which api calls I needed to make to get the data I wanted (espn's doesn't have public documentation for their api).
 
 lib/
-  - contains the compiled source code after you run npm run build. Node doesn't support ES6 syntax, so I have to compile the src/ into lib/ before running the program.
+
+- contains the compiled source code after you run npm run build. Node doesn't support ES6 syntax, so I have to compile the src/ into lib/ before running the program.
 
 node_modules/
-  - contains node libraries that the code depends on after you run npm install.
 
-### Installing
+- contains node libraries that the code depends on after you run npm install.
+
+## Installing
 
 Prerequisites: Makes use you have node/npm installed.
 
 Use `npm install` to install dependencies. They will be installed inside a new directory node_modules/.
 
-### Building and Running the program
+## Building and Running the program
 
 Build: Use `npm run build` to compile the src/ files (that use ES6 syntax) into the lib/ files (non ES6 syntax that node can understand)
 
@@ -28,3 +36,55 @@ Run: Use `node lib/ff.js` to run the program.
 
 Build and run: Alternatively, use `npm run start` to build/run the program automatically after any file saves.
 
+## TODOs
+
+### MVP (v0)
+
+End result: I can run this script on a weekly basis for one league at a time, and it prints the trades in a human-readable format that I can send to members of my league.
+
+- Implement 3v3 and nvm trade algorithms
+- Implement TradeOutputDAO that outputs in a nice format for league members to read
+- Optimize trade algorithm for accuracy: produce best trades
+  - Retrieve rest-of-season projections from other sites
+  - Play with statistic scoring metrics to determine how to rank "best" trades
+  - Consider giving the option of sorting my multiple intuitive versions of "best"
+
+### Backlog ideas
+
+- Implement FileBasedTradeInputDAO so I can store results without calling espn api each time
+- Make the input data more configurable
+  - league settings
+- Make the output data more configurable
+  - multiple views for "best" trades. This can also be implemented as configurable input instead, depending on performance
+- Write script to run this automatically on a given day of the week
+- Write script to run this automatically on every roster change
+- Write website to run this via configurable params + button press
+- Write Chrome extension to hook this into whatever espn league you're viewing
+  - have best trades show up as a pop-up on a given team's roster
+- Optimize trade algorithm for efficiency: make it run faster
+- Extend to other leagues besides ESPN
+- Extend trade algorithm to use specific league scoring rules
+  - instead of using points projections, we will use stat projections and convert that to points projections depending on given league's scoring rules
+
+### Testing
+
+- Test code on real public and real private league after the draft
+- Create accuracy benchmarks using synthetic data
+- Add unit tests
+
+### Cleanup
+
+- Remove secrets from git and delete/recreate github repo
+- Rename files to follow same naming convention (capital or lowercase)
+- Add descriptive comments everywhere
+- Combine/cleanup constants maps
+- Remove dependency on espn client package
+- Dependency Injection
+- Factories
+
+### Dev setup
+
+- VSCode plugins
+- ESLint configuration
+- Typescript
+- TODO others

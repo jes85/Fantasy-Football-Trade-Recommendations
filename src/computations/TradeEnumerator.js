@@ -4,7 +4,6 @@ import Trade from '../model/trade.js';
 /**
  * Enumerates all trades in a given league
  */
- // TODO these trade methods probably don't belong in "League"
 class TradeEnumerator {
 
   /**
