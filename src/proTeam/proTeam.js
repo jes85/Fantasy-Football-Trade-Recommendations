@@ -1,17 +1,17 @@
 class ProTeam {
 
-	static buildFromServer(proTeamData) {
-		return new ProTeam(proTeamData.id, proTeamData.location, proTeamData.name, proTeamData.byeWeek);
-	}
+  static buildFromServer(proTeamData) {
+    return new ProTeam(proTeamData.id, proTeamData.location, proTeamData.name, proTeamData.byeWeek);
+  }
 
-	constructor(id, location, name, byeWeek) {
-	    this.id = id;
-	    this.location = location;
-	    this.name = name;
-	    this.byeWeek = byeWeek;
-	}
+  constructor(id, location, name, byeWeek) {
+      this.id = id;
+      this.location = location;
+      this.name = name;
+      this.byeWeek = byeWeek;
+  }
 
-	// toString() {
+  // toString() {
  //        return '(' + this.id + ', ' + this.location + ', ' + this.name + ', ' + this.byeWeek + ')';
  //    }
 }
