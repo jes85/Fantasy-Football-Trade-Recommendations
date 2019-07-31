@@ -1,66 +1,44 @@
-import EspnClient from './clients/espnclient.js';
 import _ from 'lodash';
-// Not committing secrets to git. To run this program, create a file at path ./secrets/secrets.js and export these constants.
-import { leagueId, espnS2, swid } from './secrets/secrets.js';
-import { numWeeksInSeason, seasonId, startingLineupSlots } from './constants/constants.js';
-import League from './model/league.js';
-
-const espnClient = new ExtendedClient({ leagueId: leagueId, espnS2: espnS2, SWID: swid });
-const league = new League(numWeeksInSeason, startingLineupSlots);
-const currentWeek = 1;
-
-espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
-  //console.log(proTeamIdToByeWeekMap);
-  espnClient.getPlayers(seasonId, proTeamIdToByeWeekMap).then((players) => {
-    //console.log(players);
-    espnClient.getTeams(seasonId, players, proTeamIdToByeWeekMap).then((teams) => {
-      printTeams(teams);
-      var trades = league.getAllTrades(currentWeek, teams);
-      console.log("Total trades: " + trades.length);
-      var bestTradesMap = sortTrades(trades, teams);
-      console.log("Total viable trades: " + bestTradesMap["overall"].length);
-      printBestTrades(bestTradesMap);
-    });
-  });
-});
-
-function printTeams(teams) {
-  console.log(`Teams:\n\n ${_.map(teams, (team) => team.toString())}`);
-}
+import EspnClient from './clients/espnclient.js';
+import EspnClientTradeInputRetriever from './data/input/EspnClientTradeInputRetriever.js';
+import ConsoleTradeInputStorer from './data/input/ConsoleTradeInputStorer.js';
+import TradeInputDAO from './data/input/TradeInputDAO.js';
+import TradeEvaluator from './computations/TradeEvaluator.js';
+import TradeEnumerator from './computations/TradeEnumerator.js';
+import TradeRecommender from './computations/TradeRecommender.js';
+import ConsoleTradeOutputStorer from './data/output/ConsoleTradeOutputStorer.js';
+import TradeOutputDAO from './data/output/TradeOutputDAO.js';
 
 /**
- * 
-  {
-    "overall": [],
-    "byTeam": {
-      1: [], // key = teamId
-      2: [].
-    }
-  }
+ * Input params.
  */
-function sortTrades(trades, teams) {
-  var bestTradesMap = {};
-  // Filture all trades that are definitely bad (negative scores)
-  var viableTrades = _.filter(trades, (trade) => trade.overallTradeScore > 0);
+// Not committing secrets to git. To run this program, create a file at path ./secrets/secrets.js and export these constants.
+import { leagueId, espnS2, swid } from './secrets/secrets.js';
+var currentWeek = 0;
+var seasonId = 2019;
 
-  // Sort by descending score (best scores first).
-  var bestOverallTrades = _.sortBy(viableTrades, (trade) => -trade.overallTradeScore);
-  bestTradesMap["overall"] = bestOverallTrades;
+/**
+ * Wire in classes.
+ * TODO dependency injection
+ */
+var espnClient = new EspnClient({ leagueId: leagueId, espnS2: espnS2, SWID: swid });
+var tradeInputRetriever = new EspnClientTradeInputRetriever(espnClient);
+var tradeInputStorer = new ConsoleTradeInputStorer();
+var tradeInputDAO = new TradeInputDAO(tradeInputRetriever, tradeInputStorer);
 
-  var bestTradesByTeamMap = {};
-  _.each(teams, (team) => {
-    var tradesWithTeam = _.filter(viableTrades, (trade) => trade.includesTeam(team));
-    var bestTradesForTeam = _.sortBy(tradesWithTeam, (trade) => -trade.tradeScoreForTeam(team));
-    bestTradesByTeamMap[team.id] = bestTradesForTeam;
-  });
-  bestTradesMap["byTeam"] = bestTradesByTeamMap;
+var tradeEnumerator = new TradeEnumerator();
+var tradeEvaluator = new TradeEvaluator();
+var tradeRecommender = new TradeRecommender(tradeEnumerator, tradeEvaluator);
 
-  return bestTradesMap;
-}
+var tradeOutputRetriever = null;
+var tradeOutputStorer = new ConsoleTradeOutputStorer();
+var tradeOutputDAO = new TradeOutputDAO(tradeOutputRetriever, tradeOutputStorer);
 
-function printBestTrades(bestTradesMap) {
-  console.log(`best overall trades: ${_.map(bestTradesMap['overall'], (trade) => trade.toString())}\n.`);
-  _.each(bestTradesMap['byTeam'], (trades, teamId) => {
-    console.log(`best trades for team ${teamId} (${trades.length} total): ${_.map(trades, (trade) => trade.toString())}\n.`);
-  });
-}
+/**
+ * Main entry point.
+ */
+tradeInputDAO.loadLeague(seasonId, currentWeek).then((league) => {
+  //tradeInputDAO.saveLeague(league);
+  var bestTradesMap = tradeRecommender.findBestTrades(league);
+  tradeOutputDAO.saveTrades(league, bestTradesMap, currentWeek);
+});
