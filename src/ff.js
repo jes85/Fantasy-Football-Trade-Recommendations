@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import EspnClient from './clients/espnclient.js';
-import EspnClientTradeInputRetriever from './data/input/EspnClientTradeInputRetriever.js';
-import ConsoleTradeInputStorer from './data/input/ConsoleTradeInputStorer.js';
-import TradeInputDAO from './data/input/TradeInputDAO.js';
-import TradeEvaluator from './computations/TradeEvaluator.js';
-import TradeEnumerator from './computations/TradeEnumerator.js';
-import TradeRecommender from './computations/TradeRecommender.js';
-import ConsoleTradeOutputStorer from './data/output/ConsoleTradeOutputStorer.js';
-import TradeOutputDAO from './data/output/TradeOutputDAO.js';
+import EspnClient from './clients/espnClient.js';
+import EspnClientTradeInputRetriever from './data/input/espnClientTradeInputRetriever.js';
+import ConsoleTradeInputStorer from './data/input/consoleTradeInputStorer.js';
+import TradeInputDAO from './data/input/tradeInputDAO.js';
+import TradeEvaluator from './computations/tradeEvaluator.js';
+import TradeEnumerator from './computations/tradeEnumerator.js';
+import TradeRecommender from './computations/tradeRecommender.js';
+import ConsoleTradeOutputStorer from './data/output/consoleTradeOutputStorer.js';
+import TradeOutputDAO from './data/output/tradeOutputDAO.js';
 
 /**
  * Input params.
