@@ -60,9 +60,13 @@ Build and run: Alternatively, use `npm run start` to build/run the program autom
 
 End result: I can run this script on a weekly basis for one league at a time, and it prints the trades in a human-readable format that I can send to members of my league.
 
-- Implement 3v3 and nvm trade algorithms
+- ~~Implement 3v3 and nvm trade algorithms~~
 - Implement TradeOutputDAO that outputs in a nice format for league members to read
+  - ~~Implement FileBasedTradeOutputDAO that outputs json to a file~~
+  - Write simple ReactJS frontend that loads json file and displays data nicely
+  - Host ReactJS frontend on heroku so friends can view it
 - Optimize trade algorithm for accuracy: produce best trades
+  - Fix bug that I must have introduced when refactoring (trades have incorrect point values, teams have duplicate players)
   - Retrieve rest-of-season projections from other sites
   - Play with statistic scoring metrics to determine how to rank "best" trades
   - Consider giving the option of sorting my multiple intuitive versions of "best"

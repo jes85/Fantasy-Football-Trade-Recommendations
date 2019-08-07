@@ -34,6 +34,7 @@ class TradeEnumerator {
       var all1v1Trades = this.getAll1v1Trades(team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
       //var all1v1Trades = this.getAllnVmTrades(1, 1, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
 
+
       var all2v2Trades = [];
       //var all2v2Trades = this.getAll2v2Trades(team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots); 
       //var all2v2Trades = this.getAllnVmTrades(2, 2, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
@@ -51,7 +52,7 @@ class TradeEnumerator {
       
       var all3v2Trades = [];
       //var all3v2Trades = this.getAllnVmTrades(3, 2, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
-      
+
       var all2v3Trades = [];
       //var all2v3Trades = this.getAllnVmTrades(2, 3, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
 

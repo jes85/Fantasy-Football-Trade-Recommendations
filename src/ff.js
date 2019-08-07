@@ -7,6 +7,7 @@ import TradeEvaluator from './computations/tradeEvaluator.js';
 import TradeEnumerator from './computations/tradeEnumerator.js';
 import TradeRecommender from './computations/tradeRecommender.js';
 import ConsoleTradeOutputStorer from './data/output/consoleTradeOutputStorer.js';
+import FileBasedTradeOutputDAO from './data/output/fileBasedTradeOutputDAO.js';
 import TradeOutputDAO from './data/output/tradeOutputDAO.js';
 
 /**
@@ -33,12 +34,22 @@ var tradeRecommender = new TradeRecommender(tradeEnumerator, tradeEvaluator);
 var tradeOutputRetriever = null;
 var tradeOutputStorer = new ConsoleTradeOutputStorer();
 var tradeOutputDAO = new TradeOutputDAO(tradeOutputRetriever, tradeOutputStorer);
+tradeOutputDAO = new FileBasedTradeOutputDAO();
+
+function generateTrades(seasonId, currentWeek) {
+  tradeInputDAO.loadLeague(seasonId, currentWeek).then((league) => {
+    //tradeInputDAO.saveLeague(league);
+    var bestTradesMap = tradeRecommender.findBestTrades(league);
+    tradeOutputDAO.saveTrades(league, bestTradesMap, currentWeek);
+  });
+}
+
+function loadTrades(leagueId, seasonId, currentWeek) {
+  tradeOutputDAO.loadTrades(leagueId, seasonId, currentWeek);
+}
 
 /**
  * Main entry point.
  */
-tradeInputDAO.loadLeague(seasonId, currentWeek).then((league) => {
-  //tradeInputDAO.saveLeague(league);
-  var bestTradesMap = tradeRecommender.findBestTrades(league);
-  tradeOutputDAO.saveTrades(league, bestTradesMap, currentWeek);
-});
+//generateTrades(seasonId, currentWeek);
+loadTrades(leagueId, seasonId, currentWeek);
