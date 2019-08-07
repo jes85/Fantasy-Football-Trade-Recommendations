@@ -23,13 +23,10 @@ class EspnClientTradeInputRetriever {
     return this.espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
       return this.espnClient.getPlayers(seasonId, proTeamIdToByeWeekMap).then((players) => {
         return this.espnClient.getTeams(seasonId, players, proTeamIdToByeWeekMap).then((teams) => {
-          console.log(teams);
           // If it's before the draft, assign random teams to each member of the league.
           if (currentWeek == 0) {
             teams = this.assignPlayersToTeams(teams, players);
           }
-          console.log(teams);
-          //console.log(players);
           return new League(
             seasonId, 
             players, 

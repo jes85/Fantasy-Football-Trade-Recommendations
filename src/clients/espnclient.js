@@ -18,7 +18,6 @@ class EspnClient {
   getTeams(seasonId, players, proTeamIdToByeWeekMap) {
     return axios.get(this.getTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
         const teamsData = _.get(response.data, 'teams');
-        console.log(teamsData);   
         return _.map(teamsData, (teamData) => (
           Team.buildFromServer(teamData, players)
         ));
@@ -27,9 +26,7 @@ class EspnClient {
 
   getPlayers(seasonId, proTeamIdToByeWeekMap) {
     return axios.get(this.getPlayersRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-        //console.log(response.data);
         const playersData = _.get(response.data, 'players');
-        //console.log(playersData);
         return _.map(playersData, (playerData) => {
           // Use totalRating as an estimate to total projected points for now
           // TODO get better projections
@@ -44,10 +41,8 @@ class EspnClient {
 
   getProTeamIdToByeWeekMap(seasonId) {
     return axios.get(this.getProTeamsRoute(seasonId), this.client._buildAxiosConfig()).then((response) => {
-        //console.log(response.data);
         const proTeamsData = response.data['settings']['proTeams'];
         const totalExpectedPoints2019 = 200; // TODO
-        //console.log(proTeamsData);
         var proTeamDataList = _.map(proTeamsData, (proTeamData) => (
           ProTeam.buildFromServer(proTeamData)
         ));

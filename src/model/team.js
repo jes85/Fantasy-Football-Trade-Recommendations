@@ -6,7 +6,6 @@ class Team {
   // Use this to parse the real teams after the draft.
   // TODO Factory.
   static buildFromServer(teamData, players) {
-    console.log(teamData);
     
     var playersOnTeam = []
     _.each(teamData.players, (playerData) => {
