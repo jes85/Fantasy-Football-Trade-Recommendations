@@ -46,6 +46,7 @@ class Team {
             bestPlayersThisWeek = _.without(bestPlayersThisWeek, player);
             startingLineup.push(player);
             points += player.expectedPointsForWeek(week, numWeeksInSeason);
+            console.log(points);
             return true; // breaks out of loop
           }
           return false;
