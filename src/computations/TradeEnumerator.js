@@ -16,7 +16,7 @@ class TradeEnumerator {
     _.each(league.teams, (team, i) => {
       // Don't need to calculate trades twice.
       var otherTeams = league.teams.slice(i + 1, league.teams.length);
-      trades = trades.concat(this.getAllTradesForTeam(team, otherTeams, league.currentWeek, league.numWeeksInSeason));
+      trades = trades.concat(this.getAllTradesForTeam(team, otherTeams, league.currentWeek, league.numWeeksInSeason, league.startingLineupSlots));
     });
     return trades;
   }
@@ -26,33 +26,34 @@ class TradeEnumerator {
    */
 
 
-  getAllTradesForTeam(team, otherTeams, currentWeek, numWeeksInSeason) {
+  getAllTradesForTeam(team, otherTeams, currentWeek, numWeeksInSeason, startingLineupSlots) {
     var trades = [];
     _.each(otherTeams, (otherTeam) => {
-      var all1v1Trades = [];
-      //var all1v1Trades = this.getAll1v1Trades(team, otherTeam, currentWeek, numWeeksInSeason);
-      //var all1v1Trades = this.getAllnVmTrades(1, 1, team, otherTeam, currentWeek, numWeeksInSeason);
+
+      //var all1v1Trades = [];
+      var all1v1Trades = this.getAll1v1Trades(team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
+      //var all1v1Trades = this.getAllnVmTrades(1, 1, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
 
       var all2v2Trades = [];
-      //var all2v2Trades = this.getAll2v2Trades(team, otherTeam, currentWeek, numWeeksInSeason); 
-      //var all2v2Trades = this.getAllnVmTrades(2, 2, team, otherTeam, currentWeek, numWeeksInSeason);
+      //var all2v2Trades = this.getAll2v2Trades(team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots); 
+      //var all2v2Trades = this.getAllnVmTrades(2, 2, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
 
       var all2v1Trades = [];
-      //var all2v1Trades = this.getAll2v1Trades(team, otherTeam, currentWeek, numWeeksInSeason);
-      //var all2v1Trades = this.getAllnVmTrades(2, 1, team, otherTeam, currentWeek, numWeeksInSeason);
+      //var all2v1Trades = this.getAll2v1Trades(team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
+      //var all2v1Trades = this.getAllnVmTrades(2, 1, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
     
       var all1v2Trades = [];
-      //var all1v2Trades = this.getAll2v1Trades(otherTeam, team, currentWeek, numWeeksInSeason);
-      //var all1v2Trades = this.getAllnVmTrades(1, 2, team, otherTeam, currentWeek, numWeeksInSeason);
+      //var all1v2Trades = this.getAll2v1Trades(otherTeam, team, currentWeek, numWeeksInSeason, startingLineupSlots);
+      //var all1v2Trades = this.getAllnVmTrades(1, 2, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
 
       var all3v3Trades = [];
-      //var all3v3Trades = this.getAllnVmTrades(3, 3, team, otherTeam, currentWeek, numWeeksInSeason);
+      //var all3v3Trades = this.getAllnVmTrades(3, 3, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
       
-      //var all3v2Trades = [];
-      var all3v2Trades = this.getAllnVmTrades(3, 2, team, otherTeam, currentWeek, numWeeksInSeason);
+      var all3v2Trades = [];
+      //var all3v2Trades = this.getAllnVmTrades(3, 2, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
       
       var all2v3Trades = [];
-      //var all2v3Trades = this.getAllnVmTrades(2, 3, team, otherTeam, currentWeek, numWeeksInSeason);
+      //var all2v3Trades = this.getAllnVmTrades(2, 3, team, otherTeam, currentWeek, numWeeksInSeason, startingLineupSlots);
 
       // todo can I do this more efficiently?
       trades = trades.concat(all1v1Trades).concat(all2v2Trades).concat(all2v1Trades).concat(all1v2Trades).concat(all3v3Trades).concat(all3v2Trades).concat(all2v3Trades);
@@ -60,7 +61,7 @@ class TradeEnumerator {
     return trades;
   }
 
-  getAll1v1Trades(team1, team2, currentWeek, numWeeksInSeason) {
+  getAll1v1Trades(team1, team2, currentWeek, numWeeksInSeason, startingLineupSlots) {
     var trades = [];
     _.each(team1.players, (player1) => {
       _.each(team2.players, (player2) => {
@@ -72,8 +73,8 @@ class TradeEnumerator {
           team2, 
           [player1], 
           [player2], 
-          team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason),
-          team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason));
+          team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots),
+          team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots));
         trades.push(trade);
       });
     });
@@ -81,7 +82,7 @@ class TradeEnumerator {
     return trades;
   }
 
-  getAll2v2Trades(team1, team2, currentWeek, numWeeksInSeason) {
+  getAll2v2Trades(team1, team2, currentWeek, numWeeksInSeason, startingLineupSlots) {
     var trades = [];
     _.each(team1.players, (team1player1) => {
       _.each(_.without(team1.players, team1player1), (team1player2) => {
@@ -95,8 +96,8 @@ class TradeEnumerator {
               team2, 
               [team1player1, team1player2], 
               [team2player1, team2player2], 
-              team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason),
-              team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason));
+              team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots),
+              team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots));
             trades.push(trade);
           });
         });
@@ -106,7 +107,7 @@ class TradeEnumerator {
     return trades;
   }
 
-  getAll2v1Trades(team1, team2, currentWeek, numWeeksInSeason) {
+  getAll2v1Trades(team1, team2, currentWeek, numWeeksInSeason, startingLineupSlots) {
     var trades = [];
     _.each(team1.players, (team1player1) => {
       _.each(_.without(team1.players, team1player1), (team1player2) => {
@@ -119,8 +120,8 @@ class TradeEnumerator {
               team2, 
               [team1player1, team1player2], 
               [team2player1], 
-              team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason),
-              team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason));
+              team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots),
+              team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots));
             trades.push(trade);
         });
       });
@@ -129,7 +130,7 @@ class TradeEnumerator {
     return trades;
   }
 
-// getAll3v2Trades(team1, team2, currentWeek, numWeeksInSeason) {
+// getAll3v2Trades(team1, team2, currentWeek, numWeeksInSeason, startingLineupSlots) {
 //   var trades = [];
 //   _.each(team1.players, (team1player1) => {
 //     var team1WithoutFirst1Player = _.without(team1.players, team1player1);
@@ -149,15 +150,15 @@ class TradeEnumerator {
 //               team2, 
 //               playersToTradeOnTeam1, 
 //               playersToTradeOnTeam2, 
-//               team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason),
-//               team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason));
+//               team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots),
+//               team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots));
 //             trades.push(trade);
 //         });
 //       )};
 //     });
 //   });
 
-  getAllnVmTrades(n, m, team1, team2, currentWeek, numWeeksInSeason) {
+  getAllnVmTrades(n, m, team1, team2, currentWeek, numWeeksInSeason, startingLineupSlots) {
     var trades = [];
     var playersToTradeFromTeam1Combinations = this.getPlayerCombinations(n, team1.players);
     var playersToTradeFromTeam2Combinations = this.getPlayerCombinations(m, team2.players);
@@ -171,8 +172,8 @@ class TradeEnumerator {
           team2, 
           playersToTradeFromTeam1, 
           playersToTradeFromTeam2, 
-          team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason),
-          team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason));
+          team1AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team1.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots),
+          team2AfterTrade.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team2.expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots));
         
           trades.push(trade);
       });

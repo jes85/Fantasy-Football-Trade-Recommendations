@@ -16,7 +16,10 @@ class TradeEvaluator {
   findBestTrades(trades, teams) {
     var bestTradesMap = {};
     // Filture all trades that are definitely bad (negative scores)
+
+    //var viableTrades = trades;
     var viableTrades = _.filter(trades, (trade) => trade.overallTradeScore > 0);
+    console.log("Viable Trades: " + viableTrades.length);
 
     // Sort by descending score (best scores first).
     var bestOverallTrades = _.sortBy(viableTrades, (trade) => -trade.overallTradeScore);

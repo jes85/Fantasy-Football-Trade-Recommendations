@@ -21,10 +21,10 @@ class Team {
       this.players = players;
   }
 
-  expectedPointsRestOfSeason(currentWeek, numWeeksInSeason) {
+  expectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) {
     var points = 0;
     _.each(_.range(currentWeek, numWeeksInSeason), (week) => {
-      points += this.calculateExpectedPointsForWeek(week);
+      points += this.calculateExpectedPointsForWeek(week, numWeeksInSeason, startingLineupSlots);
     });
     return points;
   }
@@ -61,8 +61,8 @@ class Team {
   }
 
   afterTrade(playersToRemove, playersToAdd) {
-    //var newPlayers = _.without(this.players, ...playersToRemove);
     var newPlayers = _.union(_.without(this.players, ...playersToRemove), playersToAdd);
+    console.log(newPlayers.length);
     return new Team(this.id, this.nickname, newPlayers);
   }
 
