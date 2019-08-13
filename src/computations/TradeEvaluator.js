@@ -23,13 +23,14 @@ class TradeEvaluator {
 
     // Sort by descending score (best scores first).
     var bestOverallTrades = _.sortBy(viableTrades, (trade) => -trade.overallTradeScore);
-    bestTradesMap["overall"] = bestOverallTrades;
+    bestTradesMap["overall"] = bestOverallTrades.slice(0, 10);
 
     var bestTradesByTeamMap = {};
     _.each(teams, (team) => {
       var tradesWithTeam = _.filter(viableTrades, (trade) => trade.includesTeam(team));
       var bestTradesForTeam = _.sortBy(tradesWithTeam, (trade) => -trade.tradeScoreForTeam(team));
-      bestTradesByTeamMap[team.id] = bestTradesForTeam;
+      
+      bestTradesByTeamMap[team.nickname] = bestTradesForTeam.slice(0, 10);
     });
     bestTradesMap["byTeam"] = bestTradesByTeamMap;
 

@@ -12,7 +12,7 @@ class Team {
       var player = players[playerData.id];
       playersOnTeam.push(player);
     });
-    return new Team(teamData.id, teamData.nickname, playersOnTeam);
+    return new Team(teamData.id, teamData.location + " " + teamData.nickname, playersOnTeam);
   }
 
   constructor(id, nickname, players) {
@@ -46,7 +46,7 @@ class Team {
             bestPlayersThisWeek = _.without(bestPlayersThisWeek, player);
             startingLineup.push(player);
             points += player.expectedPointsForWeek(week, numWeeksInSeason);
-            console.log(points);
+            // console.log(points);
             return true; // breaks out of loop
           }
           return false;
@@ -63,7 +63,7 @@ class Team {
 
   afterTrade(playersToRemove, playersToAdd) {
     var newPlayers = _.union(_.without(this.players, ...playersToRemove), playersToAdd);
-    console.log(newPlayers.length);
+    // console.log(newPlayers.length);
     return new Team(this.id, this.nickname, newPlayers);
   }
 

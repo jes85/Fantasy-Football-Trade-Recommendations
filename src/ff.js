@@ -51,5 +51,5 @@ function loadTrades(leagueId, seasonId, currentWeek) {
 /**
  * Main entry point.
  */
-//generateTrades(seasonId, currentWeek);
-loadTrades(leagueId, seasonId, currentWeek);
+generateTrades(seasonId, currentWeek);
+//loadTrades(leagueId, seasonId, currentWeek);

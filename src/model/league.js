@@ -1,7 +1,7 @@
 class League {
-  constructor(seasonId, players, teams, proTeamIdToByeWeekMap, numWeeksInSeason, startingLineupSlots, maxLineupSlots) {
+  constructor(leagueId, seasonId, teams, proTeamIdToByeWeekMap, numWeeksInSeason, startingLineupSlots, maxLineupSlots) {
+      this.leagueId = leagueId;
       this.seasonId = seasonId;
-      this.players = players;
       this.teams = teams;
       this.proTeamIdToByeWeekMap = proTeamIdToByeWeekMap;
       this.numWeeksInSeason = numWeeksInSeason;

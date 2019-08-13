@@ -69,7 +69,7 @@ End result: I can run this script on a weekly basis for one league at a time, an
   - Fix bug that I must have introduced when refactoring (trades have incorrect point values, teams have duplicate players)
   - Retrieve rest-of-season projections from other sites
   - Play with statistic scoring metrics to determine how to rank "best" trades
-  - Consider giving the option of sorting my multiple intuitive versions of "best"
+  - Consider giving the option of sorting by multiple intuitive versions of "best"
 
 ### Backlog ideas
 

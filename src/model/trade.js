@@ -4,14 +4,14 @@ class Trade {
   constructor(
     team1,
     team2,
-    playersToTradeOnTeam1,
-    playersToTradeOnTeam2,
+    team1PlayersToTrade,
+    team2PlayersToTrade,
     team1ExpectedPointsAdded,
     team2ExpectedPointsAdded) {
     this.team1 = team1;
     this.team2 = team2;
-    this.playersToTradeOnTeam1 = playersToTradeOnTeam1;
-    this.playersToTradeOnTeam2 = playersToTradeOnTeam2;
+    this.team1PlayersToTrade = team1PlayersToTrade;
+    this.team2PlayersToTrade = team2PlayersToTrade;
     this.team1ExpectedPointsAdded = team1ExpectedPointsAdded;
     this.team2ExpectedPointsAdded = team2ExpectedPointsAdded;
     this.team1TradeScore = this.calculateTeam1Score(team1ExpectedPointsAdded, team2ExpectedPointsAdded);
@@ -21,15 +21,15 @@ class Trade {
   }
 
   includesTeam(team) {
-    return team.id == this.team1.id || team.id == this.team2.id;
+    return team.nickname == this.team1 || team.nickname == this.team2;
   }
 
   tradeScoreForTeam(team) {
     if (!this.includesTeam(team)) {
-      throw `Can't get tradeScore for team ${team.id} because that team is not involved in this trade.`
-    } else if (team.id == this.team1.id) {
+      throw `Can't get tradeScore for team ${team.nickname} because that team is not involved in this trade.`
+    } else if (team.nickname == this.team1) {
       return this.team1TradeScore;
-    } else if (team.id == this.team2.id) {
+    } else if (team.nickname == this.team2) {
       return this.team2TradeScore;
     }
   }
@@ -58,11 +58,29 @@ class Trade {
     }
   }
 
+  // toString() {
+  //   var tradeString = "\n" +
+  //     `team1: ${this.team1} team2: ${this.team2} \n` +
+  //     `team1PlayersToTrade: ${_.map(this.team1PlayersToTrade, (player) => player.fullName)} \n` +
+  //     `team2PlayersToTrade: ${_.map(this.team2PlayersToTrade, (player) => player.fullName)} \n` +
+  //     `team1ExpectedPointsAdded: ${this.team1ExpectedPointsAdded} \n` +
+  //     `team2ExpectedPointsAdded: ${this.team2ExpectedPointsAdded} \n` +
+  //     `team1TradeScore: ${this.team1TradeScore} \n` +
+  //     `team2TradeScore: ${this.team2TradeScore} \n` +
+  //     `overallTradeScore: ${this.overallTradeScore}\n`;
+  //   if (this.team1ExpectedPointsAdded <= 0 || this.team2ExpectedPointsAdded <= 0) {
+  //     return `ONE TEAM LOSES. ${tradeString}`;
+  //   } else {
+  //     return `BOTH TEAMS WIN! ${tradeString}`;
+  //   }
+  // }
+
+
   toString() {
     var tradeString = "\n" +
-      `team1: ${this.team1.id} team2: ${this.team2.id} \n` +
-      `playersToTradeOnTeam1: ${_.map(this.playersToTradeOnTeam1, (player) => player.fullName)} \n` +
-      `playersToTradeOnTeam2: ${_.map(this.playersToTradeOnTeam2, (player) => player.fullName)} \n` +
+      `team1: ${this.team1} team2: ${this.team2} \n` +
+      `team1PlayersToTrade: ${this.team1PlayersToTrade} \n` +
+      `team2PlayersToTrade: ${this.team2PlayersToTrade} \n` +
       `team1ExpectedPointsAdded: ${this.team1ExpectedPointsAdded} \n` +
       `team2ExpectedPointsAdded: ${this.team2ExpectedPointsAdded} \n` +
       `team1TradeScore: ${this.team1TradeScore} \n` +

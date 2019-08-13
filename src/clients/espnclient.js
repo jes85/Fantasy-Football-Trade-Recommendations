@@ -78,5 +78,9 @@ class EspnClient {
     const route = `${routeBase}${routeParams}`;
     return route;
   }
+
+  getLeagueId() {
+    return this.leagueId;
+  }
 }
 export default EspnClient;

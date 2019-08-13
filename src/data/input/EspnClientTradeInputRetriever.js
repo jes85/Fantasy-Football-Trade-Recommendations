@@ -28,8 +28,8 @@ class EspnClientTradeInputRetriever {
             teams = this.assignPlayersToTeams(teams, players);
           }
           return new League(
+            this.espnClient.getLeagueId(), 
             seasonId, 
-            players, 
             teams, 
             proTeamIdToByeWeekMap,
             numWeeksInSeason,
