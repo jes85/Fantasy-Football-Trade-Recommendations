@@ -1,8 +1,8 @@
 import _ from 'lodash';
 // todo retrieve these from espn league instead of constants.
 import { numWeeksInSeason, startingLineupSlots, maxLineupSlots } from '../../constants/constants.js';
-import League from '../../model/league.js';
-import Team from '../../model/team.js';
+import League from '../../model/League.js';
+import Team from '../../model/Team.js';
 
 /**
  * A TradeInputRetiever that access input data by pulling the data directly 

@@ -1,9 +1,9 @@
 import fs from 'fs';
 import _ from 'lodash';
 
-import League from '../../model/league.js';
-import Team from '../../model/team.js';
-import Player from '../../model/player.js';
+import League from '../../model/League.js';
+import Team from '../../model/Team.js';
+import Player from '../../model/Player.js';
 
 /**
  * A TradeInputRetriever that retrieves TradeInput data from the file system.

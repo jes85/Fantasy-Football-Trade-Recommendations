@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Trade from '../model/trade.js';
+import Trade from '../model/Trade.js';
 
 /**
  * Enumerates possible trades in a given league.

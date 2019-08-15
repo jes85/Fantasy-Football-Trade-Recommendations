@@ -1,9 +1,9 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-import Team from '../model/team.js';
-import Player from '../model/player.js';
-import ProTeam from '../model/proTeam.js';
+import Team from '../model/Team.js';
+import Player from '../model/Player.js';
+import ProTeam from '../model/ProTeam.js';
 
 axios.defaults.baseURL = 'http://fantasy.espn.com/apis/v3/games/ffl/seasons/';
 

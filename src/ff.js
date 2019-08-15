@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import EspnClient from './clients/espnClient.js';
+import EspnClient from './clients/EspnClient.js';
 import EspnClientTradeInputRetriever from './data/input/EspnClientTradeInputRetriever.js';
 import ConsoleTradeInputStorer from './data/input/ConsoleTradeInputStorer.js';
 import FileBasedTradeInputRetriever from './data/input/FileBasedTradeInputRetriever.js';

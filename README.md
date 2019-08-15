@@ -30,10 +30,10 @@ node_modules/
 
 Files
 
-- start with lowercase character
-- camelCase for files containing js classes (I.e. consoleTradeInputStorer.js)
+- UpperCamelCase for files containing js classes (i.e. ConsoleTradeInputStorer.js)
+- camelCase for other js files (i.e. constants.js)
 - hyphens for files containing scripts (i.e. hello-world-node.js)
-- consider adding versioning to the filenames later if necessary
+- consider adding versioning to the script filenames later if necessary
 
 Folders
 

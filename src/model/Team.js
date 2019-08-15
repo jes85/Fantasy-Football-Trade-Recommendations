@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Player from '../model/player.js';
+import Player from './Player.js';
 
 /**
  * A Team represents a team in a fantasy football league.
