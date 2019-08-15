@@ -63,7 +63,7 @@ End result: I can run this script on a weekly basis for one league at a time, an
 - ~~Implement 3v3 and nvm trade algorithms~~
 - Implement TradeOutputDAO that outputs in a nice format for league members to read
   - ~~Implement FileBasedTradeOutputDAO that outputs json to a file~~
-  - Write simple ReactJS frontend that loads json file and displays data nicely
+  - ~~Write simple ReactJS frontend that loads json file and displays data nicely~~
   - Host ReactJS frontend on heroku so friends can view it
 - Optimize trade algorithm for accuracy: produce best trades
   - Fix bug that I must have introduced when refactoring (trades have incorrect point values, teams have duplicate players)
@@ -73,7 +73,7 @@ End result: I can run this script on a weekly basis for one league at a time, an
 
 ### Backlog ideas
 
-- Implement FileBasedTradeInputDAO so I can store results without calling espn api each time
+- ~~Implement FileBasedTradeInputDAO so I can store results without calling espn api each time~~
 - Make the input data more configurable
   - league settings
 - Make the output data more configurable

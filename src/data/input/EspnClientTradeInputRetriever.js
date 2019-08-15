@@ -7,28 +7,34 @@ import Team from '../../model/team.js';
 /**
  * A TradeInputRetiever that access input data by pulling the data directly 
  * from the given client.
+ * 
+ * {EspnClient} espnClient
  */
-class EspnClientTradeInputRetriever {
+class EspnClientTradeInputRetriever { /* implements TradeInputRetriever */
 
   constructor(espnClient) {
     this.espnClient = espnClient;
   }
 
+  /////////////////////////////////////////////// Public Methods /////////////////////////////////////////////////////
+
   /**
-   * Public Methods.
+   * Note: LeagueId and credentials are embedded in the espnClient itself.
+   *
+   * @Override (see TradeInputRetriever)
    */
-  loadLeague(seasonId, currentWeek) {
+  loadLeague(leagueId, seasonId, currentWeek) {
     // todo if this is to be extended to other leagues/clients that aren't espn,
     // the proTeamIdToByeWeekMap should be abstracted.
     return this.espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
-      return this.espnClient.getPlayers(seasonId, proTeamIdToByeWeekMap).then((players) => {
-        return this.espnClient.getTeams(seasonId, players, proTeamIdToByeWeekMap).then((teams) => {
+      return this.espnClient.getPlayers(leagueId, seasonId, proTeamIdToByeWeekMap).then((players) => {
+        return this.espnClient.getTeams(leagueId, seasonId, players).then((teams) => {
           // If it's before the draft, assign random teams to each member of the league.
           if (currentWeek == 0) {
-            teams = this.assignPlayersToTeams(teams, players);
+            teams = this._assignPlayersToTeams(teams, players);
           }
           return new League(
-            this.espnClient.getLeagueId(), 
+            leagueId, 
             seasonId, 
             teams, 
             proTeamIdToByeWeekMap,
@@ -40,16 +46,18 @@ class EspnClientTradeInputRetriever {
     });
   }
 
-  /**
-   * Private Methods
-   */
+  /////////////////////////////////////////////// Private Methods /////////////////////////////////////////////////////
 
   /**
-   * Assign teams by randomly assigning each position.
+   * Assign teams by randomly assigning each position. This is useful to use when testing 
+   * the algorithm before a league does it's draft.
+   * TODO I can refactor now that I moved this here
    * 
-   * TODO refactor now that I moved this.
+   * @param {Team[]} teamsWithoutPlayersAssigned A list of teams without any players
+   * @param {Player[]} allPlayers A list of all players in fantasy football
+   * @return {Team[]} The same list of teams, but this time with players assigned to each team.
    */
-  assignPlayersToTeams(teamsWithoutPlayersAssigned, allPlayers) {
+  _assignPlayersToTeams(teamsWithoutPlayersAssigned, allPlayers) {
     var teamsWithPlayersAssigned = [];
     _.each(teamsWithoutPlayersAssigned, (team, teamIndex) => {
       var playersOnTeam = []

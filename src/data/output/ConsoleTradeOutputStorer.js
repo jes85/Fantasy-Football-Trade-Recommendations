@@ -1,18 +1,27 @@
 import _ from 'lodash';
 
-class ConsoleTradeOutputStorer {
+/**
+ * A TradeOutputStorer that stores trade output data to the console.
+ */
+class ConsoleTradeOutputStorer { /* implements TradeOutputStorer */
   
-  /**
-   * Public Methods.
-   */
-  saveTrades(league, bestTradesMap, currentWeek) {
-    this.printBestTrades(bestTradesMap); 
-  }
+  /////////////////////////////////////////////// Public Methods /////////////////////////////////////////////////////
 
   /**
-   * Private Methods.
+   * @Override (see TradeOutputStorer)
    */
-  printBestTrades(bestTradesMap) {
+  saveTrades(league, bestTradesMap, currentWeek) {
+    this._printBestTrades(bestTradesMap); 
+  }
+
+  /////////////////////////////////////////////// Private Methods /////////////////////////////////////////////////////
+
+  /**
+   * Print the bestTradesMap to the console.
+   * @param {Object} bestTradesMap 
+   * @private
+   */
+  _printBestTrades(bestTradesMap) {
     console.log("Total viable trades: " + bestTradesMap["overall"].length);
     //console.log(bestTradesMap);
     console.log(`best overall trades: ${_.map(bestTradesMap['overall'], (trade) => trade.toString())}\n.`);

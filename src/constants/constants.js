@@ -1,6 +1,7 @@
-// TODO make seasonId configurable, retrieve the others from espn 
-const seasonId = 2019;
+// TODO Retrieve theses values from espn for each league 
+
 const numWeeksInSeason = 16;
+
 // 1 QB, 2 RB, 2 WR, 1 TE, 1 D/ST, 1 K, 1 RB/WR/TE (Flex)
 // todo combine lineup maps
 const startingLineupSlots = {
@@ -23,7 +24,6 @@ const maxLineupSlots = {
 }
 
 export {
-  seasonId,
   numWeeksInSeason,
   startingLineupSlots,
   maxLineupSlots
