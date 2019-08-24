@@ -1,4 +1,4 @@
-const currentWeek = 0;
+const currentWeek = 1;
 const seasonId = 2019;
 
 const tradeInputJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/testing/leagues.json';

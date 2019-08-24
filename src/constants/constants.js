@@ -15,9 +15,9 @@ const startingLineupSlots = {
 };
 
 const maxLineupSlots = {
-  '0': 3, 
-  '2': 3, 
-  '4': 2, 
+  '0': 2, 
+  '2': 4, 
+  '4': 4, 
   '6': 2, 
   '16': 1, 
   '17': 1, 

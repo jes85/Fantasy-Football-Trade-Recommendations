@@ -16,3 +16,5 @@ class TradeOutput {
     this.bestTradesMap = bestTradesMap;
   }
 }
+
+export default TradeOutput;

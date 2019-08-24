@@ -10,8 +10,8 @@ class ConsoleTradeOutputStorer { /* implements TradeOutputStorer */
   /**
    * @Override (see TradeOutputStorer)
    */
-  saveTrades(league, bestTradesMap, currentWeek) {
-    this._printBestTrades(bestTradesMap); 
+  saveTrades(tradeOutput) {
+    this._printBestTrades(tradeOutput.bestTradesMap); 
   }
 
   /////////////////////////////////////////////// Private Methods /////////////////////////////////////////////////////

@@ -1,5 +1,4 @@
 import fs from 'fs';
-
 /**
  * A TradeOutputStorer that stores trade output data to the file system.
  */
