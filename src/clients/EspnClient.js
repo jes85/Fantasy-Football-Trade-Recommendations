@@ -45,20 +45,29 @@ class EspnClient {
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
    * @param {String} seasonId 
    * @param {Map<String, String>} proTeamIdToByeWeekMap 
-   * @return {Player[]}}
+   * @return {Player[], Map<String, Player[]>} players, teamIdToPlayersMap
    */
   getPlayers(leagueId, seasonId, proTeamIdToByeWeekMap) {
     return axios.get(this._getPlayersRoute(leagueId, seasonId), this._buildAxiosConfig()).then((response) => {
-        const playersData = _.get(response.data, 'players');
-        return _.map(playersData, (playerData) => {
-          // Use totalRating as an estimate to total projected points for now
-          // TODO get better projections
-          var totalExpectedPoints2019 = 100;
-          if (playerData.ratings) {
-            totalExpectedPoints2019 = playerData.ratings['0'].totalRating;
-          }
-          return Player.buildFromServer(playerData, proTeamIdToByeWeekMap, totalExpectedPoints2019);
+      const playersData = _.get(response.data, 'players');
+      const teamIdToPlayersMap = {};
+      var players = [];
+      _.each(playersData, (playerData) => {
+        // Use totalRating as an estimate to total projected points for now
+        // TODO get better projections
+        var totalExpectedPoints2019 = 100;
+        if (playerData.ratings) {
+          totalExpectedPoints2019 = playerData.ratings['0'].totalRating;
+        }
+        const player = Player.buildFromServer(playerData, proTeamIdToByeWeekMap, totalExpectedPoints2019);
+        players.push(player);
+        if (!teamIdToPlayersMap[playerData.onTeamId]) {
+          teamIdToPlayersMap[playerData.onTeamId] = [player];
+        } else {
+          teamIdToPlayersMap[playerData.onTeamId].push(player);
+        }
       });
+      return (players, teamIdToPlayersMap);
     });
   }
 
@@ -67,14 +76,14 @@ class EspnClient {
    * 
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
    * @param {String} seasonId 
-   * @param {Player[]} players A list of all players in the league
+   * @param {Map<String, Player[]>} players A map of teamId to list of all players on that team
    * @return {Team[]}
    */
-  getTeams(leagueId, seasonId, players) {
+  getTeams(leagueId, seasonId, teamIdToPlayersMap) {
     return axios.get(this._getTeamsRoute(leagueId, seasonId), this._buildAxiosConfig()).then((response) => {
         const teamsData = _.get(response.data, 'teams');
         return _.map(teamsData, (teamData) => (
-          Team.buildFromServer(teamData, players)
+          Team.buildFromServer(teamData, teamIdToPlayersMap)
         ));
     });
   }
@@ -112,7 +121,7 @@ class EspnClient {
 
   /**
    * Get the route that returns player data.
-   * Full endpoint: http://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=kona_player_info
+   * Full endpoint: https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=kona_player_info
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
    * @param {String} seasonId 
    * @return {string} The route
@@ -127,7 +136,7 @@ class EspnClient {
 
   /**
    * Get the route that returns team data.
-   * Full endpoint: http://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=mTeam
+   * Full endpoint: https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=mTeam
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
    * @param {String} seasonId 
    * @return {string} The route

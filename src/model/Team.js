@@ -17,17 +17,11 @@ class Team {
    * TODO Extract this to a Factory class.
    * 
    * @param {Object} teamData Data about the team retrieved from Espn
-   * @param {Map<String, Player>} A Map of PlayerId to Player for all Players in the league
+   * @param {Map<String, Player[]>} A Map of teamId to a list of all players on that team
    * @return {Team} 
    */
-  static buildFromServer(teamData, players) {
-    
-    var playersOnTeam = []
-    _.each(teamData.players, (playerData) => {
-      var player = players[playerData.id];
-      playersOnTeam.push(player);
-    });
-    return new Team(teamData.id, teamData.location + " " + teamData.nickname, playersOnTeam);
+  static buildFromServer(teamData, teamIdToPlayersMap) {
+    return new Team(teamData.id, teamData.location + " " + teamData.nickname, teamIdToPlayersMap[teamData.id]);
   }
 
   constructor(id, nickname, players) {
@@ -65,7 +59,7 @@ class Team {
    * @return {float} The expected number of points that this Team will score in the given week.
    */
   calculateExpectedPointsForWeek(week, numWeeksInSeason, startingLineupSlots) {
-    var bestPlayersThisWeek = _.sortBy(this.players, (player) => -player.calculateExpectedPointsForWeek(week));
+    var bestPlayersThisWeek = _.sortBy(this.players, (player) => -player.calculateExpectedPointsForWeek(week, numWeeksInSeason));
     var startingLineup = [];
     var points = 0;
     _.each(startingLineupSlots, (numNeeded, startingLineupSlot) => {

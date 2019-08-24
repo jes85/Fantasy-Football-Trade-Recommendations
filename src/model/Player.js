@@ -26,7 +26,7 @@ class Player {
   static buildFromServer(playerData, proTeamIdToByeWeekMap, totalExpectedPoints2019) {
     // espn uses ints, i use string. todo decide which to use
     const eligibleSlots = _.map(playerData.player.eligibleSlots, (eligibleSlot) => eligibleSlot.toString());
-    return new Player(playerData.id, playerData.player.fullName, eligibleSlots, playerData.onTeamId, proTeamIdToByeWeekMap[playerData.onTeamId].byeWeek, totalExpectedPoints2019);
+    return new Player(playerData.id, playerData.player.fullName, eligibleSlots, playerData.player.proTeamId, proTeamIdToByeWeekMap[playerData.player.proTeamId].byeWeek, totalExpectedPoints2019);
   }
 
   constructor(id, fullName, eligibleSlots, proTeamId, byeWeek, totalExpectedPoints2019) {

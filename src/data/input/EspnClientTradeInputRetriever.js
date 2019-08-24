@@ -19,7 +19,7 @@ class EspnClientTradeInputRetriever { /* implements TradeInputRetriever */
   /////////////////////////////////////////////// Public Methods /////////////////////////////////////////////////////
 
   /**
-   * Note: LeagueId and credentials are embedded in the espnClient itself.
+   * Note: Credentials are embedded in the espnClient itself.
    *
    * @Override (see TradeInputRetriever)
    */
@@ -27,8 +27,8 @@ class EspnClientTradeInputRetriever { /* implements TradeInputRetriever */
     // todo if this is to be extended to other leagues/clients that aren't espn,
     // the proTeamIdToByeWeekMap should be abstracted.
     return this.espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
-      return this.espnClient.getPlayers(leagueId, seasonId, proTeamIdToByeWeekMap).then((players) => {
-        return this.espnClient.getTeams(leagueId, seasonId, players).then((teams) => {
+      return this.espnClient.getPlayers(leagueId, seasonId, proTeamIdToByeWeekMap).then((players, teamIdToPlayersMap) => {
+        return this.espnClient.getTeams(leagueId, seasonId, teamIdToPlayersMap).then((teams) => {
           // If it's before the draft, assign random teams to each member of the league.
           if (currentWeek == 0) {
             teams = this._assignPlayersToTeams(teams, players);
@@ -59,36 +59,39 @@ class EspnClientTradeInputRetriever { /* implements TradeInputRetriever */
    */
   _assignPlayersToTeams(teamsWithoutPlayersAssigned, allPlayers) {
     var teamsWithPlayersAssigned = [];
+
+    var playersByPosition = {};
+    var bestPlayers = _.sortBy(allPlayers, (player) => -player.totalExpectedPoints2019);
+    var randomPlayers = _.shuffle(bestPlayers);
+    var randomBestPlayers = _.shuffle(bestPlayers.slice(0, teamsWithoutPlayersAssigned.length*20));
+      // todo clean up
+    _.each(startingLineupSlots, (numNeeded, startingLineupSlot) => {
+      playersByPosition[startingLineupSlot] = [];
+    });
+
+    _.each(randomBestPlayers, (player) => {
+      if (player.satisfiesStartingLineupSlot('0')) {
+        playersByPosition['0'].push(player);
+      } else if (player.satisfiesStartingLineupSlot('2')) {
+        playersByPosition['2'].push(player);
+      } else if (player.satisfiesStartingLineupSlot('4')) {
+        playersByPosition['4'].push(player);
+      } else if (player.satisfiesStartingLineupSlot('6')) {
+        playersByPosition['6'].push(player);
+      } else if (player.satisfiesStartingLineupSlot('16')) {
+        playersByPosition['16'].push(player);
+      } else if (player.satisfiesStartingLineupSlot('17')) {
+        playersByPosition['17'].push(player);
+      } else {
+        throw "There's a player whose position we don't handle correctly."
+      }
+    });
+
+  
+
+
     _.each(teamsWithoutPlayersAssigned, (team, teamIndex) => {
       var playersOnTeam = []
-      var playersByPosition = {};
-
-      _.each(startingLineupSlots, (numNeeded, startingLineupSlot) => {
-        playersByPosition[startingLineupSlot] = [];
-      });
-
-      var bestPlayers = _.sortBy(allPlayers, (player) => -player.totalExpectedPoints2019);
-      var randomPlayers = _.shuffle(bestPlayers);
-      var randomBestPlayers = _.shuffle(bestPlayers.slice(0, teamsWithoutPlayersAssigned.length*20));
-
-      // todo clean up
-      _.each(randomBestPlayers, (player) => {
-        if (player.satisfiesStartingLineupSlot('0')) {
-          playersByPosition['0'].push(player);
-        } else if (player.satisfiesStartingLineupSlot('2')) {
-          playersByPosition['2'].push(player);
-        } else if (player.satisfiesStartingLineupSlot('4')) {
-          playersByPosition['4'].push(player);
-        } else if (player.satisfiesStartingLineupSlot('6')) {
-          playersByPosition['6'].push(player);
-        } else if (player.satisfiesStartingLineupSlot('16')) {
-          playersByPosition['16'].push(player);
-        } else if (player.satisfiesStartingLineupSlot('17')) {
-          playersByPosition['17'].push(player);
-        } else {
-          throw "There's a player whose position we don't handle correctly."
-        }
-      });
 
       _.each(playersByPosition, (players, startingLineupSlot) => {
         var i = 0;
