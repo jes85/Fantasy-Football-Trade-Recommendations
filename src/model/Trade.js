@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 /**
  * A Trade involves two teams that swap players, with associated scores for how good the trade is.
- * 
+ *
  * TODO extract the logic that calculates the scores to a different class.
  * Note: I changed Team/Player to nickname/fullName because the output files were too long for the frontend to load.
  *   TODO: Change it back to Team/Player, and change the OutputStorers to strip the values of interest when printing.
@@ -10,15 +10,15 @@ import _ from 'lodash';
  *   ~~Team team2 The second team involved in the trade~~
  *   ~~Player[] team1PlayersToTrade Players on team1 that will be traded to team2~~
  *   ~~Player[] team2PlayersToTrade Players on team2 that will be traded to team1~~
- * 
+ *
  * {String} team1 The nickname of the first team involved in the trade
  * {String} team2 The nickname of the second team involved in the trade
  * {String[]} team1PlayersToTrade An list of the fullNames of the Players on team1 that will be traded to team2
  * {String[]} team2PlayersToTrade An list of the fullNames of the Players on team2 that will be traded to team1
  * {float} team1ExpectedPointsAdded The difference in the number of points team1 is projected to score the rest of the season if they do the trade vs if they don't.
-     i.e. team1AfterTrade.calculateExpectedPointsRestOfSeason() - team1.calculateExpectedPointsRestOfSeason()
+     i.e. calculateExpectedPointsRestOfSeason(team1AfterTrade) - calculateExpectedPointsRestOfSeason(team1)
  * {float} team2ExpectedPointsAdded The difference in the number of points team2 is projected to score the rest of the season if they do the trade vs if they don't.
-     i.e. team2AfterTrade.calculateExpectedPointsRestOfSeason() - team2.calculateExpectedPointsRestOfSeason()
+     i.e. calculateExpectedPointsRestOfSeason(team2AfterTrade) - calculateExpectedPointsRestOfSeason(team2)
  * {float} team1TradeScore A score assigned to the trade, biased towards value added to team1 while still being a fair trade for team2.
  * {float} team2TradeScore A score assigned to the trade, biased towards value added to team2 while still being a fair trade for team1.
  * {float} overallTradeScore A score assigned to the trade, unbiased to either team. Focused on maximizing total value added to each team while still being a fair trade for each team.
@@ -61,7 +61,7 @@ class Trade {
 
   /**
    * Convenience method for determining if a given Team is involved in this Trade.
-   * 
+   *
    * @param {Team} team
    * @return {boolean} True if this trade includes the given Team.
    */
@@ -70,10 +70,10 @@ class Trade {
   }
 
   /**
-   * Calculate the trade score for team1. 
-   * 
+   * Calculate the trade score for team1.
+   *
    * Goal:
-   *   This score will be used to determine the best trades for team1. 
+   *   This score will be used to determine the best trades for team1.
    * Intuition:
    *   The best trades for team1 are the ones with the highest team1ExpectedPointsAdded THAT TEAM2 WILL ACCEPT.
    *   We can't just rank by team1ExpectedPointsAdded, because if team2ExpectedPointsAdded are too low, then team2 will never accept the trade.
@@ -98,7 +98,7 @@ class Trade {
 
   /**
    * Calculate the overall trade score. This is not weighted in favor of team1 or team2.
-   * 
+   *
    * Goal:
    *   This score will be used to determine the best overall trades for the league.
    * Intuition:

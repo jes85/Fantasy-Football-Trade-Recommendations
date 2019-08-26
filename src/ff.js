@@ -2,13 +2,15 @@ import _ from 'lodash';
 import { PerformanceObserver, performance } from 'perf_hooks';
 
 import EspnClient from './clients/EspnClient.js';
-import CsvClient from './clients/CsvClient.js';
 
 import EspnClientTradeInputRetriever from './data/input/EspnClientTradeInputRetriever.js';
-import ConsoleTradeInputStorer from './data/input/ConsoleTradeInputStorer.js';
+// todo rename file to json
 import FileBasedTradeInputRetriever from './data/input/FileBasedTradeInputRetriever.js';
+import CsvClientTradeInputRetriever from './data/input/CsvClientTradeInputRetriever.js';
+import ConsoleTradeInputStorer from './data/input/ConsoleTradeInputStorer.js';
 import FileBasedTradeInputStorer from './data/input/FileBasedTradeInputStorer.js';
-
+import EspnPlayerPointsProjector from './computations/EspnPlayerPointsProjector.js';
+import EspnTeamPointsProjector from './computations/EspnTeamPointsProjector.js';
 import TradeEvaluator from './computations/TradeEvaluator.js';
 import TradeEnumerator from './computations/TradeEnumerator.js';
 import TradeRecommender from './computations/TradeRecommender.js';
@@ -21,18 +23,20 @@ import TradeOutput from './data/output/TradeOutput.js';
  * Input params.
  */
 // Not committing secrets to git. To run this program, create a file at path ./secrets/secrets.js and export these constants.
-import { 
-  leagueId, 
-  espnS2, 
+import {
+  leagueId,
+  espnS2,
   SWID } from './secrets/secrets.js';
 
 import {
+  maxPlayersPerTrade,
   currentWeek,
   seasonId,
-  tradeInputJsonFilePath,
-  tradeInputJsFilePath,
+  leagueJsonFilePath,
+  leagueJsFilePath,
+  playerProjectionsJsonFilePath,
   tradeOutputJsonFilePath,
-  tradeOutputJsFilePath } from './configuration.js';
+  tradeOutputJsFilePath} from './configuration.js';
 
 
 /**
@@ -40,66 +44,65 @@ import {
  * TODO dependency injection
  */
 var espnClient = new EspnClient(espnS2, SWID);
-var csvClient = new CsvClient();
 
-function loadPlayers(leagueId, seasonId) {
-  var espnPlayers = [];
-  //return espnClient.getProTeamIdToByeWeekMap(seasonId).then((proTeamIdToByeWeekMap) => {
-    //return espnClient.getPlayers(leagueId, seasonId, proTeamIdToByeWeekMap).then((espnPlayers, teamIdToPlayersMap) => {
-      var fantasyProsPlayers = csvClient.getPlayers(seasonId);
-      _.each(espnPlayers, (espnPlayer) => {
-        var fantasyProPlayer = fantasyProsPlayers[espnPlayer.fullName];
-        if (fantasyProPlayer) {
-          console.log(`Changing expected points for ${espnPlayer.fullName} from ${espnPlayer.totalExpectedPoints2019} to ${fantasyProPlayer.totalExpectedPoints2019}`);
-          espnPlayer.totalExpectedPoints2019 = fantasyProPlayer.totalExpectedPoints2019;
-        } else {
-          console.error("No fantasyPro player named " + espnPlayer.fullName);
+function loadPlayerProjectionsFromCsvToFile(leagueId, seasonId) {
+  const tradeInputRetriever = new CsvClientTradeInputRetriever();
+  const tradeInputStorer = new FileBasedTradeInputStorer(leagueJsonFilePath, leagueJsFilePath, playerProjectionsJsonFilePath);
+  const playerProjections = tradeInputRetriever.loadPlayerProjections(leagueId, seasonId);
+  tradeInputStorer.savePlayerProjections(playerProjections);
+}
+
+function loadLeagueFromEspnToFile(leagueId, seasonId, currentWeek) {
+  const playerProjectionsRetriever = new FileBasedTradeInputRetriever(leagueJsonFilePath, playerProjectionsJsonFilePath);
+  const leagueRetriever = new EspnClientTradeInputRetriever(espnClient);
+  const tradeInputStorer = new FileBasedTradeInputStorer(leagueJsonFilePath, leagueJsFilePath);
+
+  const playerProjections = playerProjectionsRetriever.loadPlayerProjections(seasonId, currentWeek);
+  leagueRetriever.loadLeague(leagueId, seasonId, currentWeek).then((league) => {
+    _.each(league.teams, (team) => {
+      _.each(team.players, (player) => {
+        if (!_.has(playerProjections, player.fullName)) {
+          console.warn(`No player projections exist for player ${player.fullName} on team ${team.nickname} in league ${leagueId}`);
         }
       });
-      return espnPlayers;
-    //});
-  //});
-}
-function loadLeague(leagueId, seasonId, currentWeek) {
-  var tradeInputRetriever = new EspnClientTradeInputRetriever(espnClient);
-  var tradeInputStorer = new FileBasedTradeInputStorer(tradeInputJsonFilePath, tradeInputJsFilePath);
-
-  tradeInputRetriever.loadLeague(leagueId, seasonId, currentWeek).then((league) => {
+    });
     tradeInputStorer.saveLeague(league);
   });
 }
 
-function generateTrades(leagueId, seasonId, currentWeek) {
-  var t0 = performance.now();
+function generateTradesFromFileToFile(leagueId, seasonId, currentWeek) {
+  const tradeInputRetriever = new FileBasedTradeInputRetriever(leagueJsonFilePath, playerProjectionsJsonFilePath);
+  const tradeOutputStorer = new FileBasedTradeOutputStorer(tradeOutputJsonFilePath, tradeOutputJsFilePath);
+  //const tradeOutputStorer = new ConsoleTradeOutputStorer();
 
-  // var espnClient = new EspnClient(espnS2, SWID);
-  // var tradeInputRetriever = new EspnClientTradeInputRetriever(espnClient);
-  var tradeInputRetriever = new FileBasedTradeInputRetriever(tradeInputJsonFilePath, csvClient);
-  var tradeEnumerator = new TradeEnumerator();
-  var tradeEvaluator = new TradeEvaluator();
-  var tradeRecommender = new TradeRecommender(tradeEnumerator, tradeEvaluator);
-  //var tradeOutputStorer = new ConsoleTradeOutputStorer();
-  var tradeOutputStorer = new FileBasedTradeOutputStorer(tradeOutputJsonFilePath, tradeOutputJsFilePath);
-
+  const t0 = performance.now();
+  const playerProjections = tradeInputRetriever.loadPlayerProjections(seasonId, currentWeek);
+  const playerPointsProjector = new EspnPlayerPointsProjector(playerProjections);
+  const teamPointsProjector = new EspnTeamPointsProjector(playerPointsProjector);
+  const tradeEnumerator = new TradeEnumerator(teamPointsProjector, maxPlayersPerTrade);
+  const tradeEvaluator = new TradeEvaluator();
+  const tradeRecommender = new TradeRecommender(tradeEnumerator, tradeEvaluator);
   tradeInputRetriever.loadLeague(leagueId, seasonId, currentWeek).then((league) => {
-    var bestTradesMap = tradeRecommender.findBestTrades(league);
-    var tradeOutput = new TradeOutput(leagueId, seasonId, currentWeek, bestTradesMap);
+    const bestTradesMap = tradeRecommender.findBestTrades(league);
+    const tradeOutput = new TradeOutput(leagueId, seasonId, currentWeek, bestTradesMap);
     tradeOutputStorer.saveTrades(tradeOutput);
-    var t1 = performance.now();
+    const t1 = performance.now();
     console.log("Time (ms): " + (t1 - t0));
   });
 }
 
 function loadTrades(leagueId, seasonId, currentWeek) {
-  var tradeOutputRetriever = new FileBasedTradeOutputRetriever(tradeOutputJsonFilePath);
-  tradeOutputRetriever.loadTrades(leagueId, seasonId, currentWeek);
+  const tradeOutputRetriever = new FileBasedTradeOutputRetriever(tradeOutputJsonFilePath);
+  const tradeOutputStorer = new ConsoleTradeOutputStorer();
+
+  const tradeOutput = tradeOutputRetriever.loadTrades(leagueId, seasonId, currentWeek);
+  tradeOutputStorer.saveTrades(tradeOutput);
 }
 
 /**
  * Main entry point.
  */
-//loadPlayers(leagueId, seasonId);
-var fantasyProsPlayers = csvClient.getPlayers(seasonId);
-//loadLeague(leagueId, seasonId, currentWeek);
-generateTrades(leagueId, seasonId, currentWeek);
-//loadTrades(leagueId, seasonId, currentWeek);
+//loadPlayerProjectionsFromCsvToFile(leagueId, seasonId);
+//loadLeagueFromEspnToFile(leagueId, seasonId, currentWeek);
+generateTradesFromFileToFile(leagueId, seasonId, currentWeek);
+//loadTradesFromFileToConsole(leagueId, seasonId, currentWeek);

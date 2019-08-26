@@ -13,19 +13,27 @@ import CsvClient from '../../clients/CsvClient.js';
 class FileBasedTradeInputRetriever { /* implements TradeInputRetriever */
 
   /**
-   * 
-   * @param {String} jsonFilePath Path to the json file where the data should be stored
+   *
+   * @param {String} leagueJsonFilePath Path to the json file where the league data are stored
+   * @param {String} projectionsJsonFilePath Path to the json file where the player projections are stored
    */
-  constructor(jsonFilePath, csvClient) {
-    this.jsonFilePath = jsonFilePath;
-    this.csvClient = csvClient;
+  constructor(leagueJsonFilePath, projectionsJsonFilePath) {
+    this.leagueJsonFilePath = leagueJsonFilePath;
+    this.projectionsJsonFilePath = projectionsJsonFilePath;
+  }
+
+  /**
+   * @Override (see TradeInputRetriever)
+   */
+  loadTradeInput(leagueId, seasonId, currentWeek) {
+    return new TradeInput(this.loadLeague(leagueId, seasonId, currentWeek), this.loadPlayerProjections(currentWeek));
   }
 
   /**
    * @Override (see TradeInputRetriever)
    */
   loadLeague(leagueId, seasonId, currentWeek) {
-    var leaguesJson = fs.readFileSync(this.jsonFilePath);
+    var leaguesJson = fs.readFileSync(this.leagueJsonFilePath);
     var leagues = JSON.parse(leaguesJson);
     var leagueObj = leagues[leagueId];
     return Promise.resolve(
@@ -40,30 +48,31 @@ class FileBasedTradeInputRetriever { /* implements TradeInputRetriever */
     ));
   }
 
+  /**
+   * @Override (see TradeInputRetriever)
+   */
+  loadPlayerProjections(seasonId, currentWeek) {
+    var playerProjectionsJson = fs.readFileSync(this.projectionsJsonFilePath);
+    var playerProjections = JSON.parse(playerProjectionsJson);
+    return playerProjections;
+  }
+
   _convertTeamsObjToTeams(teamsObj) {
     return _.map(teamsObj, (teamObj) => (
       new Team(
-        teamObj.id, 
-        teamObj.nickname, 
+        teamObj.id,
+        teamObj.nickname,
         this._convertPlayersObjToPlayer(teamObj.players))
     ));
   }
   _convertPlayersObjToPlayer(playersObj) {
-    
     return _.map(playersObj, (playerObj) => {
-      var projectedPoints = this.csvClient.getProjectedPoints(playerObj.fullName);
-      if (!projectedPoints) {
-        projectedPoints = playerObj.totalExpectedPoints2019;
-        console.log(`Setting expected points for ${playerObj.fullName} to ${playerObj.totalExpectedPoints2019}`);
-
-      }
       return new Player(
-        playerObj.id, 
-        playerObj.fullName, 
+        playerObj.id,
+        playerObj.fullName,
         playerObj.eligibleSlots,
-        playerObj.proTeamId, 
-        playerObj.byeWeek,
-        projectedPoints);
+        playerObj.proTeamId,
+        playerObj.byeWeek);
       });
   }
 }

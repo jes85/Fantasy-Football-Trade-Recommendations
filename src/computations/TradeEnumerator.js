@@ -8,19 +8,29 @@ import Trade from '../model/Trade.js';
  */
 class TradeEnumerator {
 
+  /**
+   *
+   * @param {TeamPointsProjector} teamPointsProjector
+   * @param {int} maxPlayerPerTrade
+   */
+  constructor(teamPointsProjector, maxPlayerPerTrade) {
+    this.teamPointsProjector = teamPointsProjector;
+    this.maxPlayerPerTrade = maxPlayerPerTrade;
+  }
+
   /////////////////////////////////////////////// Public Methods /////////////////////////////////////////////////////
 
   /**
    * Get all possible trades in the given league. Note currently we only consider trades between 2 teams that involve 1-3 players per team.
-   * 
-   * @param {League} league 
+   *
+   * @param {League} league
    * @return {Trade[]} A list of all possible trades that teams in the league can execute.
    */
   getAllTrades(league) {
     var trades = [];
-    //var playerCombinations = []; 
+    //var playerCombinations = [];
     var t0 = performance.now();
-    var playerCombinations = this._getAllPlayerCombinations(league.teams, 3);
+    var playerCombinations = this._getAllPlayerCombinations(league.teams, this.maxPlayerPerTrade);
     var t1 = performance.now();
     console.log("getAllPlayerCombinations (ms): " + (t1 - t0) + " playerCombinations: " + Object.keys(playerCombinations[league.teams[0].id]));
 
@@ -38,7 +48,7 @@ class TradeEnumerator {
 
   /**
    * Get all possible trades for the given team. Note currently we only consider trades between 2 teams that involve 1-3 players per team.
-   * 
+   *
    * @param {Team} team
    * @param {Team[]} otherTeams
    * @param {Object} playerCombinations See _getAllPlayerCombinations
@@ -51,37 +61,41 @@ class TradeEnumerator {
   _getAllTradesForTeam(team, otherTeams, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots) {
     var trades = [];
     _.each(otherTeams, (otherTeam) => {
+      // todo refactor
 
-      // var all1v1Trades = [];
-      var all2v2Trades = [];
-      var all2v1Trades = [];
-      var all1v2Trades = [];
-      var all3v3Trades = [];
-      var all3v2Trades = [];
-      var all2v3Trades = [];
+      if (this.maxPlayerPerTrade === 0) {
+        return;
+      }
 
       var all1v1Trades = this._getAllnVmTrades(1, 1, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
-      var all2v2Trades = this._getAllnVmTrades(2, 2, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);      
+
+      if (this.maxPlayerPerTrade === 1) {
+        trades.push(all1v1Trades);
+        return;
+      }
+
       var all2v1Trades = this._getAllnVmTrades(2, 1, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
       var all1v2Trades = this._getAllnVmTrades(1, 2, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
-      // var all3v3Trades = this._getAllnVmTrades(3, 3, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
-      // var all3v2Trades = this._getAllnVmTrades(3, 2, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
-      // var all2v3Trades = this._getAllnVmTrades(2, 3, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
-     
-      // todo can I do this more efficiently?
-      var t0 = performance.now();
-      //trades = trades.concat(all1v1Trades).concat(all2v2Trades).concat(all2v1Trades).concat(all1v2Trades).concat(all3v3Trades).concat(all3v2Trades).concat(all2v3Trades);
+      var all2v2Trades = this._getAllnVmTrades(2, 2, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
+
+      if (this.maxPlayerPerTrade === 2) {
+        trades.push(all1v1Trades, all2v1Trades, all1v2Trades, all2v2Trades);
+        return;
+      }
+
+      var all3v3Trades = this._getAllnVmTrades(3, 3, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
+      var all3v2Trades = this._getAllnVmTrades(3, 2, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
+      var all2v3Trades = this._getAllnVmTrades(2, 3, team, otherTeam, playerCombinations, currentWeek, numWeeksInSeason, startingLineupSlots);
+
       trades.push(all1v1Trades, all2v2Trades, all2v1Trades, all1v2Trades, all3v3Trades, all3v2Trades, all2v3Trades);
-      var t1 = performance.now();
-      console.log("concat trades (ms): " + (t1 - t0));
     });
-   
+
     return _.flattenDeep(trades);
   }
 
   /**
    * Get all possible trades between team1 and team2 that involve n players from team 1 and n players from team2
-   * 
+   *
    * @param {int} n
    * @param {int} m
    * @param {Team} team1
@@ -89,7 +103,7 @@ class TradeEnumerator {
    * @param {Object} playerCombinations See _getAllPlayerCombinations
    * @param {int} currentWeek
    * @param {int} numWeeksInSeason
-   * @param {Map<String, int>} startingLineupSlots 
+   * @param {Map<String, int>} startingLineupSlots
    * @return {Trade[]} A list of all possible trades between team1 and team2 that involve n players from team 1 and n players from team2
    * @private
    */
@@ -108,16 +122,20 @@ class TradeEnumerator {
 
         // Storing less info because file is too long. TODO set up a data structure to be able to retrieve the full data
         // i.e. store team1 id, player id, and look them up in a team/players list.
-        var team1ExpectedPointsAdded = team1AfterTrade.calculateExpectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team1.calculateExpectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots);
         var t2 = performance.now();
-        var team2ExpectedPointsAdded = team2AfterTrade.calculateExpectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots) - team2.calculateExpectedPointsRestOfSeason(currentWeek, numWeeksInSeason, startingLineupSlots);
+        var team1ExpectedPoints = this.teamPointsProjector.calculateExpectedPointsRestOfSeason(team1, currentWeek, numWeeksInSeason, startingLineupSlots);
+        var team1AfterTradeExpectedPoints = this.teamPointsProjector.calculateExpectedPointsRestOfSeason(team1AfterTrade, currentWeek, numWeeksInSeason, startingLineupSlots);
+        var team1ExpectedPointsAdded = team1AfterTradeExpectedPoints - team1ExpectedPoints;
+        var team2ExpectedPoints = this.teamPointsProjector.calculateExpectedPointsRestOfSeason(team2, currentWeek, numWeeksInSeason, startingLineupSlots);
+        var team2AfterTradeExpectedPoints =  this.teamPointsProjector.calculateExpectedPointsRestOfSeason(team2AfterTrade, currentWeek, numWeeksInSeason, startingLineupSlots)
+        var team2ExpectedPointsAdded = team2AfterTradeExpectedPoints - team2ExpectedPoints;
         var t3 = performance.now();
         //console.log("Calculate expected points added (ms): " + (t3 - t2));
         var trade = new Trade(
-          team1.nickname, 
-          team2.nickname, 
-          _.map(playersToTradeFromTeam1, player => player.fullName), 
-          _.map(playersToTradeFromTeam2, player => player.fullName), 
+          team1.nickname,
+          team2.nickname,
+          _.map(playersToTradeFromTeam1, player => player.fullName),
+          _.map(playersToTradeFromTeam2, player => player.fullName),
           team1ExpectedPointsAdded,
           team2ExpectedPointsAdded
         );
@@ -131,9 +149,9 @@ class TradeEnumerator {
   }
 
   /**
-   *  
-   * @param {Team[]} teams 
-   * @param {int} n 
+   *
+   * @param {Team[]} teams
+   * @param {int} n
    * @returns {Object}
    * {
    * "team1": {
@@ -151,17 +169,17 @@ class TradeEnumerator {
   _getAllPlayerCombinations(teams, n) {
     var playerCombinations = {};
     _.each(teams, (team) => {
-      var tst = _.zipObject(_.range(1, n+1), _.map(_.range(1, n+1), (i) => this._getPlayerCombinations(i, team.players))); 
+      var tst = _.zipObject(_.range(1, n+1), _.map(_.range(1, n+1), (i) => this._getPlayerCombinations(i, team.players)));
       playerCombinations[team.id] = tst;
     });
-  
+
     return playerCombinations;
   }
 
   /**
    * Get a list of all combinations of n players from a list of players. n must be < players.length
    * TODO clean this up/test this. It's confusing.
-   * 
+   *
    * @param {int} n
    * @param {Players[]} players
    * @return {Player[n][]}

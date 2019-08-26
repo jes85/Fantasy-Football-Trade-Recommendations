@@ -9,7 +9,7 @@ axios.defaults.baseURL = 'http://fantasy.espn.com/apis/v3/games/ffl/seasons/';
 
 /**
  * A client that accesses data from the Espn Fantasy Football API.
- * 
+ *
  * String espnS2 The espnS2 cookie to use to authenticate to private leagues. Not required for public leagues.
  * String SWID The SWID cookie to use to authenticate to private leagues. Not required for public leagues.
  */
@@ -20,10 +20,10 @@ class EspnClient {
   }
 
   /////////////////////////////////////////////// Public Methods /////////////////////////////////////////////////////
- 
+
   /**
    * Get a map of pro team id to bye week.
-   * 
+   *
    * @param {String} seasonId Season id is in the endpoint required for some reason
    * @return {Map<String, String} The proTeamIdToByeWeekMap
    */
@@ -34,18 +34,18 @@ class EspnClient {
           ProTeam.buildFromServer(proTeamData)
         ));
         return _.keyBy(proTeamDataList, (proTeam) => (
-          proTeam.id 
+          proTeam.id
         ));
     });
   }
 
   /**
    * Get a list of Players in the espn league for the given season.
-   * 
+   *
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
-   * @param {String} seasonId 
-   * @param {Map<String, String>} proTeamIdToByeWeekMap 
-   * @return {Player[], Map<String, Player[]>} players, teamIdToPlayersMap
+   * @param {String} seasonId
+   * @param {Map<String, String>} proTeamIdToByeWeekMap
+   * @return {{Player[], Map<String, Player[]>}} {players, teamIdToPlayersMap}
    */
   getPlayers(leagueId, seasonId, proTeamIdToByeWeekMap) {
     return axios.get(this._getPlayersRoute(leagueId, seasonId), this._buildAxiosConfig()).then((response) => {
@@ -67,15 +67,15 @@ class EspnClient {
           teamIdToPlayersMap[playerData.onTeamId].push(player);
         }
       });
-      return (players, teamIdToPlayersMap);
+      return {players, teamIdToPlayersMap};
     });
   }
 
   /**
    * Get a list of Teams in the espn league for the given season.
-   * 
+   *
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
-   * @param {String} seasonId 
+   * @param {String} seasonId
    * @param {Map<String, Player[]>} players A map of teamId to list of all players on that team
    * @return {Team[]}
    */
@@ -108,7 +108,7 @@ class EspnClient {
   /**
    * Get the route that returns pro team data.
    * Full endpoint: https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019?view=proTeamSchedules
-   * @param {String} seasonId 
+   * @param {String} seasonId
    * @return {string} The route
    * @private
    */
@@ -123,7 +123,7 @@ class EspnClient {
    * Get the route that returns player data.
    * Full endpoint: https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=kona_player_info
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
-   * @param {String} seasonId 
+   * @param {String} seasonId
    * @return {string} The route
    * @private
    */
@@ -138,7 +138,7 @@ class EspnClient {
    * Get the route that returns team data.
    * Full endpoint: https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/7538631?&view=mTeam
    * @param {String} leagueId A unique identifier for the Espn Fantasy Football League
-   * @param {String} seasonId 
+   * @param {String} seasonId
    * @return {string} The route
    * @private
    */
