@@ -13,6 +13,7 @@ import EspnPlayerPointsProjector from './computations/EspnPlayerPointsProjector.
 import EspnTeamPointsProjector from './computations/EspnTeamPointsProjector.js';
 import TradeEvaluator from './computations/TradeEvaluator.js';
 import TradeEnumerator from './computations/TradeEnumerator.js';
+import TradePostProcessor from './computations/TradePostProcessor.js';
 import TradeRecommender from './computations/TradeRecommender.js';
 import ConsoleTradeOutputStorer from './data/output/ConsoleTradeOutputStorer.js';
 import FileBasedTradeOutputStorer from './data/output/FileBasedTradeOutputStorer.js';
@@ -36,6 +37,7 @@ import {
   leagueJsFilePath,
   playerProjectionsJsonFilePath,
   tradeOutputJsonFilePath,
+  postProcessedTradeOutputJsonFilePath,
   tradeOutputJsFilePath} from './configuration.js';
 
 
@@ -81,7 +83,8 @@ function generateTradesFromFileToFile(leagueId, seasonId, currentWeek) {
   const teamPointsProjector = new EspnTeamPointsProjector(playerPointsProjector);
   const tradeEnumerator = new TradeEnumerator(teamPointsProjector, maxPlayersPerTrade);
   const tradeEvaluator = new TradeEvaluator();
-  const tradeRecommender = new TradeRecommender(tradeEnumerator, tradeEvaluator);
+  const tradePostProcessor = new TradePostProcessor();
+  const tradeRecommender = new TradeRecommender(tradeEnumerator, tradeEvaluator, tradePostProcessor);
   tradeInputRetriever.loadLeague(leagueId, seasonId, currentWeek).then((league) => {
     const bestTradesMap = tradeRecommender.findBestTrades(league);
     const tradeOutput = new TradeOutput(leagueId, seasonId, currentWeek, bestTradesMap);
@@ -91,7 +94,7 @@ function generateTradesFromFileToFile(leagueId, seasonId, currentWeek) {
   });
 }
 
-function loadTrades(leagueId, seasonId, currentWeek) {
+function loadTradesFromFileToConsole(leagueId, seasonId, currentWeek) {
   const tradeOutputRetriever = new FileBasedTradeOutputRetriever(tradeOutputJsonFilePath);
   const tradeOutputStorer = new ConsoleTradeOutputStorer();
 
@@ -100,9 +103,23 @@ function loadTrades(leagueId, seasonId, currentWeek) {
 }
 
 /**
+ * Load the TradeOutput and filter the trades according to the TradePostProcessor
+ */
+function postProcessTrades(leagueId, seasonId, currentWeek) {
+  const tradeOutputRetriever = new FileBasedTradeOutputRetriever(tradeOutputJsonFilePath);
+  const tradePostProcessor = new TradePostProcessor();
+  // todo need to copy tradeOutputJsonFilePath to postProcessedTradeOutputJsonFilePath first so that I don't overwrite other leagues.
+  const tradeOutputStorer = new FileBasedTradeOutputStorer(postProcessedTradeOutputJsonFilePath, tradeOutputJsFilePath);
+
+  const tradeOutput = tradeOutputRetriever.loadTrades(leagueId, seasonId, currentWeek);
+  const newTradeOutput = new TradeOutput(tradeOutput.leagueId, tradeOutput.seasonId, tradeOutput.weekId, tradePostProcessor.processTrades(tradeOutput.bestTradesMap));
+  tradeOutputStorer.saveTrades(newTradeOutput);
+}
+
+/**
  * Main entry point.
  */
 //loadPlayerProjectionsFromCsvToFile(leagueId, seasonId);
 //loadLeagueFromEspnToFile(leagueId, seasonId, currentWeek);
 generateTradesFromFileToFile(leagueId, seasonId, currentWeek);
-//loadTradesFromFileToConsole(leagueId, seasonId, currentWeek);
+//postProcessTrades(leagueId, seasonId, currentWeek);
