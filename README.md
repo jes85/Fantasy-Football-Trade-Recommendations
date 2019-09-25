@@ -4,6 +4,14 @@
 
 The goal of this project is to recommend trades for fantasy football. It downloads league/team data from ESPN Fantasy Football based on the leagueId you provide, and outputs trade recommendations for each team.
 
+## Supporting a new espn league
+
+Public leagues:
+  - You'll need the leagueId. Navigate to your league on espn and find the leagueID in the URL. i.e. https://fantasy.espn.com/football/team?leagueId=1066964&teamId=5&seasonId=2019
+
+Private leagues:
+  - You'll need the leagueId (see above), as well as two cookies from ESPN: espn_s2 and SWID. These are found at "Application > Cookies > espn.com" in the Chrome DevTools when on espn.com and signed in. Full instructions: sign in to your account on espn.com on Chrome and open Chrome DevTools by clicking View -> Developer -> Developer Tools. In the DevTools window, click the Application tab at the top, find Cookies on the left, and click https://www.espn.com. In the table that appears, find the values for SWID and espn_s2.
+
 ## File structure
 
 src/
@@ -56,7 +64,7 @@ Build and run: Alternatively, use `npm run start` to build/run the program autom
 
 ## TODOs
 
-### MVP (v0)
+### ~~MVP (v0)~~ (DONE)
 
 End result: I can run this script on a weekly basis for one league at a time, and it prints the trades in a human-readable format that I can send to members of my league.
 
@@ -64,11 +72,10 @@ End result: I can run this script on a weekly basis for one league at a time, an
 - Implement TradeOutputDAO that outputs in a nice format for league members to read
   - ~~Implement FileBasedTradeOutputDAO that outputs json to a file~~
   - ~~Write simple ReactJS frontend that loads json file and displays data nicely~~
-  - Host ReactJS frontend on heroku so friends can view it
+  - ~~Host ReactJS frontend on heroku so friends can view it~~
 - Optimize trade algorithm for accuracy: produce best trades
-  - Fix bug that I must have introduced when refactoring (trades have incorrect point values, teams have duplicate players)
-  - Retrieve rest-of-season projections from other sites
-  - Play with statistic scoring metrics to determine how to rank "best" trades
+  - ~~Retrieve rest-of-season projections from other sites~~
+  - ~~Play with statistic scoring metrics to determine how to rank "best" trades~~
   - Consider giving the option of sorting by multiple intuitive versions of "best"
 
 ### Backlog ideas
@@ -90,18 +97,18 @@ End result: I can run this script on a weekly basis for one league at a time, an
 
 ### Testing
 
-- Test code on real public and real private league after the draft
+- ~~Test code on real public and real private league after the draft~~
 - Create accuracy benchmarks using synthetic data
 - Add unit tests
 
 ### Cleanup
 
-- Remove secrets from git and delete/recreate github repo
+- ~~Remove secrets from git~~ and delete/recreate github repo
 - ~~Rename files to follow same naming convention (I chose convention based off combination of google searches for js conventions)~~
   - ~~see above for the convention I decided on~~
 - Add descriptive comments everywhere
 - Combine/cleanup constants maps
-- Remove dependency on espn client package
+- ~~Remove dependency on espn client package~~
 - Dependency Injection
 - Factories
 
@@ -111,3 +118,7 @@ End result: I can run this script on a weekly basis for one league at a time, an
 - ESLint configuration
 - Typescript
 - TODO others
+
+## Acknowledgements
+
+Thanks to the [mkreiser/ESPN-Fantasy-Football-API](https://github.com/mkreiser/ESPN-Fantasy-Football-API) for documentation of the ESPN v2 API and cookies setup that helped me as I extended it to the v3 api for my use case.
