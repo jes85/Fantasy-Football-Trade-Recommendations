@@ -1,13 +1,32 @@
 const maxPlayersPerTrade = 2;
-const currentWeek = 1;
+const currentWeek = 3;
 const seasonId = 2019;
 
-const leagueJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/testing/leagues.json';
+const leagueJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/leagues.json';
 const leagueJsFilePath = '/Users/jeremyschreck/Developer/react/ff/src/data/leagues.js';
-const playerProjectionsJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/testing/playerProjections.json';
+const playerProjectionsJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/playerProjections.json';
 
-const tradeOutputJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/testing/bestTrades.json';
+const tradeOutputJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/bestTrades.json';
+const postProcessedTradeOutputJsonFilePath = '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/bestTradesPostProcessed.json';
 const tradeOutputJsFilePath = '/Users/jeremyschreck/Developer/react/ff/src/data/bestTrades.js';
+
+const projectionCsvs = [
+  '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/CBS_Projections_QB.csv',
+  '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/CBS_Projections_RB.csv',
+  '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/CBS_Projections_WR.csv',
+  '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/CBS_Projections_TE.csv',
+  '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/CBS_Projections_DST.csv',
+  '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/CBS_Projections_K.csv'
+];
+
+// const projectionCsvs = [
+//   '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/FantasyPros_Fantasy_Football_Projections_QB.csv',
+//   '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/FantasyPros_Fantasy_Football_Projections_RB.csv',
+//   '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/FantasyPros_Fantasy_Football_Projections_WR.csv',
+//   '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/FantasyPros_Fantasy_Football_Projections_TE.csv',
+//   '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/FantasyPros_Fantasy_Football_Projections_DST.csv',
+//   '/Users/jeremyschreck/Developer/ff/src/projections/CurrentWeek/FantasyPros_Fantasy_Football_Projections_K.csv'
+// ];
 
 // TODO Retrieve theses values from espn for each league
 const numWeeksInSeason = 17;
@@ -42,8 +61,10 @@ export {
   leagueJsFilePath,
   playerProjectionsJsonFilePath,
   tradeOutputJsonFilePath,
+  postProcessedTradeOutputJsonFilePath,
   tradeOutputJsFilePath,
   numWeeksInSeason,
   startingLineupSlots,
-  maxLineupSlots
+  maxLineupSlots,
+  projectionCsvs
 }

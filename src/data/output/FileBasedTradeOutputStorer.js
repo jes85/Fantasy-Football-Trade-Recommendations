@@ -5,7 +5,7 @@ import fs from 'fs';
 class FileBasedTradeOutputStorer { /* implements TradeOutputStorer */
 
   /**
-   * 
+   *
    * @param {String} jsonFilePath Path to the json file where the data should be stored
    * @param {String} jsFilePath Path to the js file where the data should be stored
    */
@@ -19,7 +19,7 @@ class FileBasedTradeOutputStorer { /* implements TradeOutputStorer */
    * @Override (see TradeOutputStorer)
    */
   saveTrades(tradeOutput) {
-    // Read exisitng json and add bestTrades for this league to it, overriding exisiting data for this leagueId if it exists.
+    // Read existing json and add bestTrades for this league to it, overriding exisiting data for this leagueId if it exists.
     var bestTradesJson = fs.readFileSync(this.jsonFilePath);
     var bestTradesAllLeagues = JSON.parse(bestTradesJson);
     bestTradesAllLeagues[tradeOutput.leagueId] = tradeOutput.bestTradesMap;

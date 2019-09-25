@@ -1,4 +1,5 @@
 import fs from 'fs';
+import TradeOutput from './TradeOutput.js';
 
 /**
  * A TradeOutputRetriever that retrieves trade output data from the file system.
@@ -6,7 +7,7 @@ import fs from 'fs';
 class FileBasedTradeOutputRetriever { /* implements TradeOutputRetriever */
 
   /**
-   * 
+   *
    * @param {String} jsonFilePath Path to the json file where the data is stored
    */
   constructor(jsonFilePath) {
